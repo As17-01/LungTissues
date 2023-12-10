@@ -8,7 +8,6 @@ __pycache__/
 *.xlsx
 *.data
 datasets/
-data/
 
 # C extensions
 *.so
