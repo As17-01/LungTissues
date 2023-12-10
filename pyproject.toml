@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "lungtissues"
+version = "0.1.0"
+description = ""
+authors = ["As17-01 <As17-01@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.2"
+pandas = "^2.1.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
