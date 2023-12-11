@@ -1,25 +1,5 @@
-limit_bounds: True # display entire scan area
-overlap: 1 # overlap of adjacent tiles [1]
-format: "jpeg" # image format for tiles [jpeg]
-workers: 4 # number of worker processes to start [4]
-basename: None # base name of output file
-quality: 90 # JPEG compression quality [90]
-with_viewer: None # generate directory tree with HTML viewer
-tile_size: 254 # tile size [254]
-Bkg: 50 # Max background threshold [50]; percentager of background allowed
-# Alernate way to remove background tile based on standard deviation
-# of the average grey level on the edge image. If the Std if below this value, 
-# the tile is not saved (5 to 20 recommended)
-Std: 0
-xmlfile: None # path to xml file from Aperio annotation; json for QuPath
-Fieldxml: "Value" # which field of the xml file is the label saved
-mask_type: 1 # if xml file is used, keep tile within the ROI (1) or outside of it (0)
-ROIpc: 50 # To be used with xml file - minimum percentage of tile covered by ROI (white)
-oLabelref: "" # To be used with xml file - Only tile for label which contains the characters in oLabel
-SaveMasks: False # set to yes if you want to save ALL masks for ALL tiles (will be saved in same directory with <mask> suffix)
-tmp_dcm: None # base name of output folder to save intermediate dcm images converted to jpg (we assume the patient ID is the folder name in which the dcm images are originally saved)
-srh: 0 # set to 1 for srh images
-Mag: -1 # Magnification at which tiling should be done; if Mag=-1 and pixelsize=-1, they will be tiles at all magnifications; if Mag=-1 and pixelsize>0, it will be tiled at a certain pixelsize
-pixelsize: -1 # Ignored if -1 or if Mag>0. Otherwise, will tile the svs files at the requested pixelsize (assumed to be stored in the header of the svs, in the openslide.mpp-x field
-pixelsizerange: 0 # svs are always tiled at a factor of 2 from the original higher magnification. This is the range allowed around the pixelsize. svs will be tiles at whatever magnification is the closest to the pixelsize, plus or minus the deviation. Nothing will be tiled if no magnification falls within that range. If its valiue is -1, then the tiles will be rescaled to match the desired final size and pixelsize
-normalize: None # if normalization is needed, N list the mean and std for each channel. For example '57,22,-8,20,10,5' with the first 3 numbers being the targeted means, and then the targeted stds
+tile_size: 254
+overlap: 1
+limit_bounds: true
+quality: 90
+background_limi: 50
