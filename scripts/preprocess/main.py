@@ -63,13 +63,15 @@ def process_slide(slide_queue):
             sample_type = "normal" if "Normal" in case_sample_type_mapping[sample_case_id] else "tumor"
 
             slide_path = get_file_path(slide_dir, "TCGA")
-            logger.info(f"Processing {slide_path}")
+            logger.info(f"Processing {file_name}")
 
             slide = openslide.open_slide(slide_path)
             slide_save_dir = save_dir / sample_type / file_name
             slide_save_dir.mkdir(exist_ok=True, parents=True)
 
             tiler.process(slide, slide_save_dir)
+            logger.info(f"Done {file_name}")
+            
             time.sleep(1)
     return True
 
