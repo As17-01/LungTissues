@@ -62,10 +62,10 @@ def process_slide(slide_queue):
             sample_case_id = file_case_mapping[file_name]
             sample_type = "normal" if "Normal" in case_sample_type_mapping[sample_case_id] else "tumor"
 
-            _slide_path = get_file_path(slide_dir, "TCGA")
-            logger.info(f"Processing {_slide_path}")
+            slide_path = get_file_path(slide_dir, "TCGA")
+            logger.info(f"Processing {slide_path}")
 
-            slide = openslide.open_slide(_slide_path)
+            slide = openslide.open_slide(slide_path)
             slide_save_dir = save_dir / sample_type / file_name
             slide_save_dir.mkdir(exist_ok=True, parents=True)
 
