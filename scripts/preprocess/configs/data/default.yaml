@@ -1,2 +1,2 @@
-load_dir: "../../datasets/raw"
-save_dir: "../../datasets/intermediate"
+load_dir: "../../data/raw"
+save_dir: "../../data/intermediate"
