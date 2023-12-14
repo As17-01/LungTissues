@@ -1,5 +1,5 @@
 tile_size: 254
 overlap: 1
-limit_bounds: true
 quality: 90
-background_limi: 50
+background_limit: 50
+limit_bounds: true
