@@ -2,9 +2,9 @@ import torch
 import torch.nn.functional as f
 
 
-class Baseline(torch.nn.Module):
+class CNNBaseline(torch.nn.Module):
     def __init__(self):
-        super(Baseline, self).__init__()
+        super(CNNBaseline, self).__init__()
         self.conv1 = torch.nn.Conv2d(3, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.fc1 = torch.nn.Linear(16 * 62 * 62, 120)

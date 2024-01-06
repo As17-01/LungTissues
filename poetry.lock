@@ -783,6 +783,16 @@ ssh = ["paramiko"]
 tqdm = ["tqdm"]
 
 [[package]]
+name = "future"
+version = "0.18.3"
+description = "Clean single-source support for Python 3 and 2"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
+]
+
+[[package]]
 name = "google-auth"
 version = "2.26.1"
 description = "Google Authentication Library"
@@ -1525,6 +1535,21 @@ files = [
     {file = "mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d"},
     {file = "mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782"},
 ]
+
+[[package]]
+name = "ncps"
+version = "0.0.7"
+description = "Neural Circuit Policies for PyTorch and Keras"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ncps-0.0.7-py3-none-any.whl", hash = "sha256:abcfb693385759a6a608615674411b4db1388eb54a26b0f8a602a02130a8eb6d"},
+    {file = "ncps-0.0.7.tar.gz", hash = "sha256:56fec1b8d7249574784add2c60d78e68fb0661d6dfac90659fa8cb3255c39abb"},
+]
+
+[package.dependencies]
+future = "*"
+packaging = "*"
 
 [[package]]
 name = "nest-asyncio"
@@ -3349,4 +3374,4 @@ requests = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "877a39cac54783fa4535f4140c0e8ffc3da27bf2170ca59171f4aaf2ddc044ec"
+content-hash = "66ff660dca160998f4088fdff4a4df233a67ba07403b16dce11a304f208bf759"
