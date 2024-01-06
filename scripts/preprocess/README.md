@@ -10,7 +10,7 @@ Data should be already loaded into `lungtissues/data` folder. To change the beha
 
 Example:
 
-![Alt text](download_data_example.jpg?raw=true "Title")
+![Alt text](download_data_example.jpg?raw=true "Example")
 
 # Configuration
 

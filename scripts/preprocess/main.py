@@ -71,7 +71,7 @@ def process_slide(slide_queue):
 
             tiler.process(slide, slide_save_dir)
             logger.info(f"Done {file_name}")
-            
+
             time.sleep(1)
     return True
 
