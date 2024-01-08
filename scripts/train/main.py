@@ -22,6 +22,12 @@ import src.models
 def main(cfg: DictConfig) -> None:
     load_dir = pathlib.Path(cfg.data.load_dir)
 
+    train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv")
+    valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv")
+
+    train_dataloader = DataLoader(train_data, batch_size=64, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, batch_size=64, shuffle=True)
+
     cfg_dct = omegaconf.OmegaConf.to_container(cfg, resolve=True)
     registry = Registry()
     registry.add_from_module(src.models, prefix="src.models.")
@@ -29,12 +35,6 @@ def main(cfg: DictConfig) -> None:
     model = registry.get_from_params(**cfg_dct["model"])
     loss_fn = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
-
-    train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv")
-    valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv")
-
-    train_dataloader = DataLoader(train_data, batch_size=64, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, batch_size=64, shuffle=True)
 
     def train_one_epoch(epoch_index, tb_writer):
         running_loss = 0.0
@@ -61,11 +61,11 @@ def main(cfg: DictConfig) -> None:
         return last_loss
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    writer = SummaryWriter(f"runs/fashion_trainer_{timestamp}")
+    writer = SummaryWriter(f"runs/trainer_{timestamp}")
     epoch_number = 0
     best_vloss = 1000000.0
     for epoch in range(cfg.training_params.num_epochs):
-        logger.info("EPOCH {}:".format(epoch_number + 1))
+        logger.info(f"EPOCH {epoch_number + 1}:")
 
         model.train(True)
         avg_loss = train_one_epoch(epoch_number, writer)
