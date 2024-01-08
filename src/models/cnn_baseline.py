@@ -9,7 +9,7 @@ class CNNBaseline(torch.nn.Module):
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.fc1 = torch.nn.Linear(16 * 62 * 62, 120)
         self.fc2 = torch.nn.Linear(120, 84)
-        self.fc3 = torch.nn.Linear(84, 10)
+        self.fc3 = torch.nn.Linear(84, 2)
 
     def forward(self, x):
         x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))

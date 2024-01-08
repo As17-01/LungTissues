@@ -52,7 +52,7 @@ def main(cfg: DictConfig) -> None:
             optimizer.step()
 
             running_loss += loss.item()
-            if i % 1000 == 999:
+            if i % 10 == 9:
                 last_loss = running_loss / 1000
                 logger.info(f"  batch {i + 1} loss: {last_loss}")
                 tb_x = epoch_index * len(train_dataloader) + i + 1
