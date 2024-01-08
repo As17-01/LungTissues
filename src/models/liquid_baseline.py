@@ -3,6 +3,7 @@ import torch.nn.functional as f
 from ncps.torch import LTC
 from ncps.wirings import AutoNCP
 
+
 class LiquidBaseline(torch.nn.Module):
     # See https://github.com/mlech26l/ncps
     def __init__(self):
