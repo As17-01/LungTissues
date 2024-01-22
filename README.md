@@ -8,6 +8,12 @@ Their Git repository:
 
 `https://github.com/ncoudray/DeepPATH/`
 
+Data could be accessed via the following link (not guaranteed to be supported):
+
+`https://disk.yandex.com/d/txPhNhp8soBwHw`
+
+Or the slides could be downloaded directly from the source (Check `scripts/preprocess` directory)
+
 # Lung Tissues Classification
 
 Install the project and requirements with the following command:
