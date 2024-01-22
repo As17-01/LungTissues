@@ -1,3 +1,13 @@
+# Introduction
+
+This study is based on the following paper: 
+
+`https://www.nature.com/articles/s41591-018-0177-5`
+
+Their Git repository:
+
+`https://github.com/ncoudray/DeepPATH/`
+
 # Lung Tissues Classification
 
 Install the project and requirements with the following command:
