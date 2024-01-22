@@ -1,4 +1,6 @@
-# Introduction
+# Lung Tissues Classification
+
+## Introduction
 
 This study is based on the following paper: 
 
@@ -14,7 +16,7 @@ Data could be accessed via the following link (not guaranteed to be supported):
 
 Or the slides could be downloaded directly from the source (Check `scripts/preprocess` directory)
 
-# Lung Tissues Classification
+## Installation
 
 Install the project and requirements with the following command:
 
@@ -24,7 +26,7 @@ Enter the virtual environment using the following command:
 
 `poetry shell`
 
-# Additional requirements
+## Additional requirements
 
 You will also need to run the following commands to install non-python requirements:
 
