@@ -26,7 +26,7 @@ class DefaultDataset(Dataset):
         while cur_len < self.max_sequence_len:
             cur_len += 1
 
-            # TODO: It can be improved - where to look at an image??
+            # TODO: It can be improved - where to look at a slide??
             image_path = random.choice(os.listdir(slide_path))
             image = read_image(slide_path + "/" + image_path)
             image = image / 255
