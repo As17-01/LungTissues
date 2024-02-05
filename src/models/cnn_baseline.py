@@ -12,8 +12,8 @@ class CNNBaseline(torch.nn.Module):
         self.fc3 = torch.nn.Linear(84, 2)
 
     def forward(self, x):
-        num_slices = x.shape[1]
         num_batches = x.shape[0]
+        num_slices = x.shape[1]
 
         scores = torch.tensor([[0.0, 0.0]] * num_batches)
 
