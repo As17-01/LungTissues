@@ -7,9 +7,9 @@ from torchvision.io import read_image
 
 class DefaultDataset(Dataset):
     def __init__(
-        self, annotation_file, max_sequence_len=64, transform=None, target_transform=None
+        self, annotation_file, max_sequence_len=32, transform=None, target_transform=None
     ):
-        self.slide_labels = pd.read_csv(annotation_file)
+        self.slide_labels = pd.read_csv(annotation_file, header=None)
         self.max_sequence_len = max_sequence_len
         self.transform = transform
         self.target_transform = target_transform

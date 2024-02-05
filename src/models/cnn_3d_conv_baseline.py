@@ -5,7 +5,7 @@ import torch.nn.functional as f
 class CNN3DConvBaseline(torch.nn.Module):
     def __init__(self):
         super(CNN3DConvBaseline, self).__init__()
-        self.conv1 = torch.nn.Conv3d(64, 6, (1, 5, 5))
+        self.conv1 = torch.nn.Conv3d(32, 6, (1, 5, 5))
         self.conv2 = torch.nn.Conv3d(6, 16, (1, 3, 3))
         self.fc1 = torch.nn.Linear(16 * 3 * 62 * 62, 120)
         self.fc2 = torch.nn.Linear(120, 84)
