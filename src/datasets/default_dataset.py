@@ -1,4 +1,6 @@
-import os, random
+import os
+import random
+
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
@@ -6,9 +8,7 @@ from torchvision.io import read_image
 
 
 class DefaultDataset(Dataset):
-    def __init__(
-        self, annotation_file, max_sequence_len=32, transform=None, target_transform=None
-    ):
+    def __init__(self, annotation_file, max_sequence_len=32, transform=None, target_transform=None):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
         self.max_sequence_len = max_sequence_len
         self.transform = transform
@@ -19,7 +19,7 @@ class DefaultDataset(Dataset):
 
     def __getitem__(self, idx):
         slide_path = self.slide_labels.iloc[idx, 0]
-        
+
         cur_len = 0
         image_list = []
         # TODO: Let's not care about the constant number of chosen images for now

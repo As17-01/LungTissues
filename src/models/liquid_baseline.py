@@ -1,5 +1,4 @@
 import torch
-import torch.nn.functional as f
 from ncps.torch import LTC
 
 
@@ -20,6 +19,6 @@ class LiquidBaseline(torch.nn.Module):
         x = x.view(num_batches, num_slices, -1)
         x = self.fc1(x)
         x, hidden = self.rnn(x, hidden)
-        x = self.fc2(x[:,-1,:])
+        x = self.fc2(x[:, -1, :])
 
         return x

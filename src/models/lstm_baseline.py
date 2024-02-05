@@ -1,5 +1,4 @@
 import torch
-import torch.nn.functional as f
 
 
 class LSTMBaseline(torch.nn.Module):
@@ -19,6 +18,6 @@ class LSTMBaseline(torch.nn.Module):
 
         x = x.view(num_batches, num_slices, -1)
         x, hidden = self.lstm(x, hidden)
-        x = self.fc1(x[:,-1,:])
+        x = self.fc1(x[:, -1, :])
 
         return x

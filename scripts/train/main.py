@@ -8,8 +8,8 @@ import torch
 from hydra_slayer import Registry
 from loguru import logger
 from omegaconf import DictConfig
-from torch.utils.data import DataLoader
 from sklearn.metrics import roc_auc_score
+from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
 sys.path.append("../../")
