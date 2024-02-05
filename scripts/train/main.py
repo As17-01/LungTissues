@@ -9,6 +9,7 @@ from hydra_slayer import Registry
 from loguru import logger
 from omegaconf import DictConfig
 from torch.utils.data import DataLoader
+from sklearn.metrics import roc_auc_score
 from torch.utils.tensorboard import SummaryWriter
 
 sys.path.append("../../")
@@ -25,8 +26,8 @@ def main(cfg: DictConfig) -> None:
     train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv")
     valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv")
 
-    train_dataloader = DataLoader(train_data, batch_size=64, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, batch_size=64, shuffle=True)
+    train_dataloader = DataLoader(train_data, batch_size=10, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, batch_size=10, shuffle=True)
 
     cfg_dct = omegaconf.OmegaConf.to_container(cfg, resolve=True)
     registry = Registry()
@@ -34,7 +35,7 @@ def main(cfg: DictConfig) -> None:
 
     model = registry.get_from_params(**cfg_dct["model"])
     loss_fn = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     def train_one_epoch(epoch_index, tb_writer):
         running_loss = 0.0
@@ -73,11 +74,19 @@ def main(cfg: DictConfig) -> None:
 
         model.eval()
         with torch.no_grad():
+            true_labels = []
+            pred_labels = []
             for i, vdata in enumerate(valid_dataloader):
                 vinputs, vlabels = vdata
                 voutputs = model(vinputs)
                 vloss = loss_fn(voutputs, vlabels)
                 running_vloss += vloss
+
+                true_labels.extend(vlabels.tolist())
+                pred_labels.extend(voutputs[:, 1].tolist())
+
+        vroc_auc = roc_auc_score(true_labels, pred_labels)
+        logger.info(f"ROC AUC valid {vroc_auc}")
 
         avg_vloss = running_vloss / (i + 1)
         logger.info(f"LOSS train {avg_loss} valid {avg_vloss}")

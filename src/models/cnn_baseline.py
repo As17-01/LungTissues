@@ -13,22 +13,18 @@ class CNNBaseline(torch.nn.Module):
 
     def forward(self, x):
         num_slices = x.shape[1]
-        x = x.view(-1, *x.shape[2:])
+        num_batches = x.shape[0]
 
-        x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))
-        x = f.max_pool2d(f.relu(self.conv2(x)), 2)
-        x = x.view(-1, self.num_flat_features(x))
-        x = f.relu(self.fc1(x))
-        x = f.relu(self.fc2(x))
-        x = self.fc3(x)
-        x = x.view(-1, num_slices, x.shape[1])
-        x = torch.mean(x, 1)
-        
-        return x
+        scores = torch.tensor([[0.0, 0.0]] * num_batches)
 
-    def num_flat_features(self, x):
-        size = x.size()[1:]
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features
+        x = x.permute(1, 0, 2, 3, 4)
+        for cur_x in x:
+            cur_x = f.max_pool2d(f.relu(self.conv1(cur_x)), (2, 2))
+            cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), 2)
+            cur_x = cur_x.view(num_batches, -1)
+            cur_x = f.relu(self.fc1(cur_x))
+            cur_x = f.relu(self.fc2(cur_x))
+            cur_x = self.fc3(cur_x)
+
+            scores += torch.div(cur_x, num_slices)
+        return scores
