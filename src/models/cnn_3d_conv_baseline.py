@@ -2,28 +2,22 @@ import torch
 import torch.nn.functional as f
 
 
-class CNNBaseline(torch.nn.Module):
+class CNN3DConvBaseline(torch.nn.Module):
     def __init__(self):
-        super(CNNBaseline, self).__init__()
-        self.conv1 = torch.nn.Conv2d(3, 6, 5)
-        self.conv2 = torch.nn.Conv2d(6, 16, 3)
-        self.fc1 = torch.nn.Linear(16 * 62 * 62, 120)
+        super(CNN3DConvBaseline, self).__init__()
+        self.conv1 = torch.nn.Conv3d(64, 6, (1, 5, 5))
+        self.conv2 = torch.nn.Conv3d(6, 16, (1, 3, 3))
+        self.fc1 = torch.nn.Linear(16 * 3 * 62 * 62, 120)
         self.fc2 = torch.nn.Linear(120, 84)
         self.fc3 = torch.nn.Linear(84, 2)
 
     def forward(self, x):
-        num_slices = x.shape[1]
-        x = x.view(-1, *x.shape[2:])
-
-        x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))
-        x = f.max_pool2d(f.relu(self.conv2(x)), 2)
+        x = f.max_pool3d(f.relu(self.conv1(x)), (1, 2, 2))
+        x = f.max_pool3d(f.relu(self.conv2(x)), (1, 2, 2))
         x = x.view(-1, self.num_flat_features(x))
         x = f.relu(self.fc1(x))
         x = f.relu(self.fc2(x))
         x = self.fc3(x)
-        x = x.view(-1, num_slices, x.shape[1])
-        x = torch.mean(x, 1)
-        
         return x
 
     def num_flat_features(self, x):
