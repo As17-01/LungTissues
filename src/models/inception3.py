@@ -5,6 +5,7 @@ from typing import List
 from typing import Optional
 
 import torch
+import torch.nn.functional as f
 from torchvision.models import Inception3
 
 InceptionOutputs = namedtuple("InceptionOutputs", ["logits", "aux_logits"])
@@ -31,10 +32,10 @@ class ModifiedInception3(Inception3):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        num_batches = x.shape[0]
-        num_slices = x.shape[1]
+        batch_size = x.shape[0]
+        slide_size = x.shape[1]
 
-        scores = torch.tensor([[0.0, 0.0]] * num_batches)
+        scores = torch.tensor([[0.0, 0.0]] * batch_size)
 
         x = x.permute(1, 0, 2, 3, 4)
         for cur_x in x:
@@ -47,7 +48,6 @@ class ModifiedInception3(Inception3):
                 cur_x = InceptionOutputs(cur_x, aux)
             else:
                 cur_x = self.eager_outputs(cur_x, aux)
-            scores += torch.div(cur_x[0], num_slices)
+            scores += torch.div(f.sigmoid(cur_x[0]), slide_size)
 
-        # TODO: add sigmoid here and everywhere else
         return scores

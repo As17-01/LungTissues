@@ -5,6 +5,7 @@ from typing import Type
 from typing import Union
 
 import torch
+import torch.nn.functional as f
 from torchvision.models import ResNet
 from torchvision.models.resnet import BasicBlock
 from torchvision.models.resnet import Bottleneck
@@ -34,15 +35,14 @@ class ModifiedResNet18(ResNet):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        num_batches = x.shape[0]
-        num_slices = x.shape[1]
+        batch_size = x.shape[0]
+        slide_size = x.shape[1]
 
-        scores = torch.tensor([[0.0, 0.0]] * num_batches)
+        scores = torch.tensor([[0.0, 0.0]] * batch_size)
 
         x = x.permute(1, 0, 2, 3, 4)
         for cur_x in x:
             cur_x = self._forward_impl(cur_x)
-            scores += torch.div(cur_x, num_slices)
-
-        # TODO: add sigmoid here and everywhere else
+            cur_x = f.sigmoid(cur_x)
+            scores += torch.div(cur_x, slide_size)
         return scores
