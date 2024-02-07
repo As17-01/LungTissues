@@ -10,6 +10,7 @@ from torchvision.models import Inception3
 InceptionOutputs = namedtuple("InceptionOutputs", ["logits", "aux_logits"])
 InceptionOutputs.__annotations__ = {"logits": torch.Tensor, "aux_logits": Optional[torch.Tensor]}
 
+
 class ModifiedInception3(Inception3):
     def __init__(
         self,

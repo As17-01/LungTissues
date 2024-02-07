@@ -1,10 +1,18 @@
+from typing import Callable
+from typing import List
+from typing import Optional
+from typing import Type
+from typing import Union
+
 import torch
-from typing import Type, Union, Optional, Callable, List
 from torchvision.models import ResNet
-from torchvision.models.resnet import BasicBlock, Bottleneck
+from torchvision.models.resnet import BasicBlock
+from torchvision.models.resnet import Bottleneck
+
 
 class ModifiedResNet18(ResNet):
-    def __init__(self,
+    def __init__(
+        self,
         block: Type[Union[BasicBlock, Bottleneck]] = BasicBlock,
         layers: List[int] = [2, 2, 2, 2],
         num_classes: int = 2,
@@ -13,7 +21,7 @@ class ModifiedResNet18(ResNet):
         width_per_group: int = 64,
         replace_stride_with_dilation: Optional[List[bool]] = None,
         norm_layer: Optional[Callable[..., torch.nn.Module]] = None,
-        ):
+    ):
         super(ModifiedResNet18, self).__init__(
             block=block,
             layers=layers,
