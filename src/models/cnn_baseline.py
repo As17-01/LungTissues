@@ -7,7 +7,7 @@ class CNNBaseline(torch.nn.Module):
         super(CNNBaseline, self).__init__()
         self.conv1 = torch.nn.Conv2d(3, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
-        self.fc1 = torch.nn.Linear(16 * 62 * 62, 120)
+        self.fc1 = torch.nn.Linear(16 * 72 * 72, 120)
         self.fc2 = torch.nn.Linear(120, 84)
         self.fc3 = torch.nn.Linear(84, 2)
 

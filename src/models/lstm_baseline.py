@@ -4,7 +4,7 @@ import torch
 class LSTMBaseline(torch.nn.Module):
     def __init__(self):
         super(LSTMBaseline, self).__init__()
-        self.lstm = torch.nn.LSTM(3 * 256 * 256, 120, 2, batch_first=True)
+        self.lstm = torch.nn.LSTM(3 * 299 * 299, 120, 2, batch_first=True)
         self.fc1 = torch.nn.Linear(120, 2)
 
     def forward(self, x):

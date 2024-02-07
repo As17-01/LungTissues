@@ -6,7 +6,7 @@ class LiquidBaseline(torch.nn.Module):
     # See https://github.com/mlech26l/ncps
     def __init__(self):
         super(LiquidBaseline, self).__init__()
-        self.fc1 = torch.nn.Linear(3 * 256 * 256, 400)
+        self.fc1 = torch.nn.Linear(3 * 299 * 299, 400)
         self.rnn = LTC(400, 28)
         self.fc2 = torch.nn.Linear(28, 2)
 
