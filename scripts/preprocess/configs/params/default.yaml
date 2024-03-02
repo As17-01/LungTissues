@@ -1,6 +1,6 @@
 tile_size: 1490
 overlap: 1
 quality: 90
-background_limit: 50
+background_limit: 10
 limit_bounds: true
-num_cpu: 10
+num_cpu: 3
