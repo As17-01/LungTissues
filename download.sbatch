@@ -9,6 +9,7 @@
 
 module load Python
 conda create --name lung_tissues_venv python=3.10
+conda install poetry
 source activate lung_tissues_venv
 poetry install
 
