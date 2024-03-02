@@ -9,8 +9,8 @@
 
 module load Python
 conda create --name lung_tissues_venv python=3.10
-conda install poetry
 source activate lung_tissues_venv
+conda install poetry
 poetry install
 
 python scripts/yandex_disk_download/main.py
