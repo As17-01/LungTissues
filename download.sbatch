@@ -8,9 +8,9 @@
 #SBATCH --gpus=0                            # Требуемое кол-во GPU
 
 module load Python
-conda create --name lung_tissues_venv python=3.10
+conda create --name lung_tissues_venv
 source activate lung_tissues_venv
 conda install poetry
-poetry install
+conda poetry install
 
 python scripts/yandex_disk_download/main.py
