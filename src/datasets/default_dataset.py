@@ -2,13 +2,13 @@ import os
 import random
 
 import pandas as pd
-import torch
+import numpy as np
 from torch.utils.data import Dataset
 from torchvision.io import read_image
 
 
 class DefaultDataset(Dataset):
-    def __init__(self, annotation_file, max_sequence_len=32, transform=None, target_transform=None):
+    def __init__(self, annotation_file, max_sequence_len=25, transform=None, target_transform=None):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
         self.max_sequence_len = max_sequence_len
         self.transform = transform
@@ -20,24 +20,21 @@ class DefaultDataset(Dataset):
     def __getitem__(self, idx):
         slide_path = self.slide_labels.iloc[idx, 0]
 
-        cur_len = 0
-        image_list = []
-        # TODO: Let's not care about the constant number of chosen images for now
-        while cur_len < self.max_sequence_len:
-            cur_len += 1
+        image_path = random.choice(os.listdir(slide_path))
+        image = read_image(slide_path + "/" + image_path)
+        image = image / 255
 
-            # TODO: It can be improved - where to look at a slide??
-            image_path = random.choice(os.listdir(slide_path))
-            image = read_image(slide_path + "/" + image_path)
-            image = image / 255
-
-            image_list.append(image)
-
-        joined_images = torch.stack(image_list)
+        if int(np.sqrt(self.max_sequence_len)) != np.sqrt(self.max_sequence_len):
+            raise ValueError("Max sequence length must be a perfect square.")
+        if int(image.shape / np.sqrt(self.max_sequence_len)) != (image.shape / np.sqrt(self.max_sequence_len)):
+            raise ValueError("The size of slices should be divisible by the max_sequence_len.")
+        
+        kernel_size = int(image.shape / np.sqrt(self.max_sequence_len))
+        patches = image.unfold(1, kernel_size, kernel_size).unfold(2, kernel_size, kernel_size)
 
         label = self.slide_labels.iloc[idx, 1].astype("int")
         if self.transform:
-            joined_images = self.transform(joined_images)
+            patches = self.transform(patches)
         if self.target_transform:
             label = self.target_transform(label)
-        return joined_images, label
+        return patches, label
