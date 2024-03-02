@@ -68,6 +68,7 @@ class YandexDiskDownloader:
 @hydra.main(config_path="configs", config_name="config", version_base="1.2")
 def main(cfg: DictConfig) -> None:
     save_dir = pathlib.Path(cfg.data.save_dir)
+    save_dir.mkdir(exist_ok=True, parents=True)
 
     logger.info("Downloading data")
 
