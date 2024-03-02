@@ -29,6 +29,7 @@ matplotlib = "^3.8.2"
 ipykernel = "^6.28.0"
 tensorboard = "^2.15.1"
 ncps = "^0.0.7"
+requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^3.0.0"
