@@ -1,5 +1,5 @@
 tile_size: 2980
-overlap: 1
+overlap: 0
 quality: 90
 background_limit: 50
 limit_bounds: true
