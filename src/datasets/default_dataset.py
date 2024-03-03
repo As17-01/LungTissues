@@ -26,11 +26,13 @@ class DefaultDataset(Dataset):
 
         if int(np.sqrt(self.max_sequence_len)) != np.sqrt(self.max_sequence_len):
             raise ValueError("Max sequence length must be a perfect square.")
-        if int(image.shape / np.sqrt(self.max_sequence_len)) != (image.shape / np.sqrt(self.max_sequence_len)):
+        if int(image.shape[1] / np.sqrt(self.max_sequence_len)) != (image.shape[1] / np.sqrt(self.max_sequence_len)):
             raise ValueError("The size of slices should be divisible by the max_sequence_len.")
         
-        kernel_size = int(image.shape / np.sqrt(self.max_sequence_len))
+        kernel_size = int(image.shape[1] / np.sqrt(self.max_sequence_len))
         patches = image.unfold(1, kernel_size, kernel_size).unfold(2, kernel_size, kernel_size)
+        patches = patches.contiguous().view(3, self.max_sequence_len, kernel_size, kernel_size)
+        patches = patches.swapaxes(0, 1)
 
         label = self.slide_labels.iloc[idx, 1].astype("int")
         if self.transform:
