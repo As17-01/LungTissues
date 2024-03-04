@@ -8,11 +8,13 @@ from torchvision.io import read_image
 
 
 class DefaultDataset(Dataset):
-    def __init__(self, annotation_file, max_sequence_len=100, transform=None, target_transform=None):
+    def __init__(self, annotation_file, max_sequence_len=100, random_seed=None, transform=None, target_transform=None):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
         self.max_sequence_len = max_sequence_len
         self.transform = transform
         self.target_transform = target_transform
+
+        random.seed(random_seed)
 
     def __len__(self):
         return len(self.slide_labels)
