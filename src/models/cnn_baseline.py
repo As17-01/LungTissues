@@ -16,6 +16,7 @@ class CNNBaseline(torch.nn.Module):
 
     def forward(self, x):
         batch_size = x.shape[0]
+        slide_size = x.shape[1]
 
         scores = torch.zeros(size=(batch_size, 2))
         for cur_x in x.permute(1, 0, 2, 3, 4):
@@ -26,7 +27,7 @@ class CNNBaseline(torch.nn.Module):
             cur_x = f.relu(self.fc2(cur_x))
             cur_x = self.fc3(cur_x)
 
-            scores += cur_x
+            scores += torch.div(cur_x, slide_size)
         scores = f.sigmoid(scores)
         return scores
 
