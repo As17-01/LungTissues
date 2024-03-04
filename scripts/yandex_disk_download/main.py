@@ -60,8 +60,8 @@ class YandexDiskDownloader:
                     file.write(chunk)
                     file.flush()
 
-        self.unzip(save_path)
-        os.remove(save_path)
+        # self.unzip(save_path)
+        # os.remove(save_path)
         logger.info("Download complete.")
 
 
