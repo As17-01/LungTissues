@@ -1,8 +1,8 @@
 import torch
 import torch.nn.functional as f
-from src.models.metrics import accuracy
-
 from loguru import logger
+
+from src.models.metrics import accuracy
 
 
 class CNNBaseline(torch.nn.Module):
@@ -25,30 +25,32 @@ class CNNBaseline(torch.nn.Module):
             cur_x = f.relu(self.fc1(cur_x))
             cur_x = f.relu(self.fc2(cur_x))
             cur_x = self.fc3(cur_x)
-        
+
             scores += cur_x
         scores = f.sigmoid(scores)
         return scores
 
     def training_step(self, batch):
-        images, labels = batch 
-        out = self(images)                  # Generate predictions
-        loss = f.cross_entropy(out, labels) # Calculate loss
+        images, labels = batch
+        out = self(images)  # Generate predictions
+        loss = f.cross_entropy(out, labels)  # Calculate loss
         return loss
-    
+
     def validation_step(self, batch):
-        images, labels = batch 
-        out = self(images)                    # Generate predictions
-        loss = f.cross_entropy(out, labels)   # Calculate loss
-        acc = accuracy(out, labels)           # Calculate accuracy
+        images, labels = batch
+        out = self(images)  # Generate predictions
+        loss = f.cross_entropy(out, labels)  # Calculate loss
+        acc = accuracy(out, labels)  # Calculate accuracy
         return {"val_loss": loss, "val_acc": acc}
 
     def validation_epoch_end(self, outputs):
         batch_losses = [x["val_loss"] for x in outputs]
-        epoch_loss = torch.stack(batch_losses).mean()   # Combine losses
+        epoch_loss = torch.stack(batch_losses).mean()  # Combine losses
         batch_accs = [x["val_acc"] for x in outputs]
-        epoch_acc = torch.stack(batch_accs).mean()      # Combine accuracies
+        epoch_acc = torch.stack(batch_accs).mean()  # Combine accuracies
         return {"val_loss": epoch_loss.item(), "val_acc": epoch_acc.item()}
 
     def epoch_end(self, epoch, result):
-        logger.info("Epoch [{}], val_loss: {:.4f}, val_acc: {:.4f}".format(epoch, result["val_loss"], result["val_acc"]))
+        logger.info(
+            "Epoch [{}], val_loss: {:.4f}, val_acc: {:.4f}".format(epoch, result["val_loss"], result["val_acc"])
+        )

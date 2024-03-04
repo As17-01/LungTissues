@@ -1,8 +1,8 @@
 import os
 import random
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 from torch.utils.data import Dataset
 from torchvision.io import read_image
 
@@ -30,7 +30,7 @@ class DefaultDataset(Dataset):
             raise ValueError("Max sequence length must be a perfect square.")
         if int(image.shape[1] / np.sqrt(self.max_sequence_len)) != (image.shape[1] / np.sqrt(self.max_sequence_len)):
             raise ValueError("The size of slices should be divisible by the max_sequence_len.")
-        
+
         kernel_size = int(image.shape[1] / np.sqrt(self.max_sequence_len))
         patches = image.unfold(1, kernel_size, kernel_size).unfold(2, kernel_size, kernel_size)
         patches = patches.contiguous().view(3, self.max_sequence_len, kernel_size, kernel_size)

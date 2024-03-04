@@ -1,9 +1,9 @@
+import datetime
+import json
 import pathlib
 import sys
 
 import hydra
-import json
-import datetime
 import omegaconf
 import torch
 from hydra_slayer import Registry
@@ -23,43 +23,46 @@ def get_default_device():
         return torch.device("cuda")
     else:
         return torch.device("cpu")
-    
+
+
 def to_device(data, device):
     if isinstance(data, (list, tuple)):
         return [to_device(x, device) for x in data]
     return data.to(device, non_blocking=True)
 
-class DeviceDataLoader():
+
+class DeviceDataLoader:
     """Wrap a dataloader to move data to a device."""
+
     def __init__(self, dl, device):
         self.dl = dl
         self.device = device
-        
+
     def __iter__(self):
         """Yield a batch of data after moving it to device."""
-        for b in self.dl: 
+        for b in self.dl:
             yield to_device(b, self.device)
 
     def __len__(self):
-        """Number of batches."""
         return len(self.dl)
-    
+
 
 def evaluate(model, val_loader):
     """Evaluate the model's performance."""
     outputs = [model.validation_step(batch) for batch in val_loader]
     return model.validation_epoch_end(outputs)
 
+
 def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
     """Train the model using gradient descent."""
     current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     save_dir = pathlib.Path(f"./saved_models/{current_time}")
     save_dir.mkdir(exist_ok=True, parents=True)
-    
+
     history = []
     optimizer = opt_func(model.parameters(), lr)
     for epoch in range(epochs):
-        # Training Phase 
+        # Training Phase
         for batch in train_loader:
             loss = model.training_step(batch)
             loss.backward()
@@ -101,7 +104,6 @@ def main(cfg: DictConfig) -> None:
 
     history = [evaluate(model, valid_dataloader)]
     history += fit(cfg.training_params.num_epochs, 0.5, model, train_dataloader, valid_dataloader)
-
 
 
 if __name__ == "__main__":
