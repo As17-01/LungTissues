@@ -21,6 +21,8 @@ class YandexDiskDownloader:
         response = requests.get(url)
         download_url = response.json()["href"]
         file_name = urllib.parse.unquote(download_url.split("filename=")[1].split("&")[0])
+
+        save_dir.mkdir(exist_ok=True, parents=True)
         save_path_zip = save_dir / file_name
 
         with open(save_path_zip, "wb") as file:
