@@ -39,7 +39,7 @@ class YandexDiskDownloader:
                 archieve.extractall(save_path)
             logger.info(f"Zip is unpacked to {save_path}")
 
-        os.remove(save_path_zip)
+            os.remove(save_path_zip)
 
 
     def download(self):
