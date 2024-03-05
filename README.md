@@ -10,7 +10,7 @@ Their Git repository:
 
 `https://github.com/ncoudray/DeepPATH/`
 
-Data could be downloaded from `https://disk.yandex.com/d/hqC98Tu1WfdFfQ` (not guaranteed to be supported):
+Data could be downloaded from `https://disk.yandex.com/d/7biFrtKubbOxrw` (not guaranteed to be supported):
 
 Or the slides could be downloaded directly from the source (Check `scripts/preprocess` directory)
 
