@@ -30,7 +30,8 @@ def get_file_path(dir: pathlib.Path, file_prefix: str) -> pathlib.Path:
 def get_slides_path(dir: pathlib.Path) -> List[pathlib.Path]:
     slides_path = []
     for file in os.listdir(dir / "images"):
-        file_path = dir / "images" / file
+        # TODO: remove second /file in final version
+        file_path = dir / "images" / file / file
         if os.path.isdir(file_path):
             slides_path.append(file_path)
     return slides_path
