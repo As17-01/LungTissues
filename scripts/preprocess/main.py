@@ -27,13 +27,21 @@ def get_file_path(dir: pathlib.Path, file_prefix: str) -> pathlib.Path:
             return file_path
 
 
-def get_slides_path(dir: pathlib.Path) -> List[pathlib.Path]:
+def get_slides_path(load_dir: pathlib.Path, save_dir: pathlib.Path) -> List[pathlib.Path]:
+    already_saved = []
+    for file in os.listdir(save_dir / "tumor"):
+        already_saved.append(file)
+    for file in os.listdir(save_dir / "normal"):
+        already_saved.append(file)
+
     slides_path = []
-    for file in os.listdir(dir / "images"):
-        # TODO: remove second /file in final version
-        file_path = dir / "images" / file / file
-        if os.path.isdir(file_path):
-            slides_path.append(file_path)
+    for file in os.listdir(load_dir / "images"):
+        if file not in already_saved:
+            # TODO: remove second /file in the final version
+            file_path = load_dir / "images" / file / file
+
+            if os.path.isdir(file_path):
+                slides_path.append(file_path)
     return slides_path
 
 
@@ -83,7 +91,8 @@ def main(cfg: DictConfig) -> None:
     save_dir = pathlib.Path(cfg.data.save_dir)
 
     logger.info("Loading data")
-    slides_path = get_slides_path(load_dir)
+    slides_path = get_slides_path(load_dir, save_dir)
+    logger.info(f"Num slides: {len(slides_path)}")
 
     with open(get_file_path(load_dir, "biospecimen.cart"), "r") as ouf:
         biospecimen = json.load(ouf)
