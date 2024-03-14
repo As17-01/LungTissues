@@ -101,7 +101,8 @@ def main(cfg: DictConfig) -> None:
     registry.add_from_module(src.models, prefix="src.models.")
 
     model = registry.get_from_params(**cfg_dct["model"])
-    to_device(model, device)
+    model = torch.nn.DataParallel(model)
+    model.to(device)
 
     history = [evaluate(model, valid_dataloader)]
     history += fit(cfg.training_params.num_epochs, 0.05, model, train_dataloader, valid_dataloader)

@@ -5,7 +5,7 @@
 #SBATCH --time=00:02:00                     # Максимальное время выполнения 
 #SBATCH --cpus-per-task=1                   # Количество CPU на одну задачу
 #SBATCH --nodes=1                           # Требуемое кол-во узлов 
-#SBATCH --gpus=1                            # Требуемое кол-во GPU
+#SBATCH --gpus=2                            # Требуемое кол-во GPU
 
 module load Python
 source activate lung_tissues_venv
