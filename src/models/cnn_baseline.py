@@ -17,30 +17,19 @@ class CNNBaseline(torch.nn.Module):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def forward(self, x):
-        print(x.shape)
         batch_size = x.shape[0]
         slide_size = x.shape[1]
 
         scores = torch.zeros(size=(batch_size, 2), device=self.device)
         for cur_x in x.permute(1, 0, 2, 3, 4):
-            print(cur_x.shape)
             cur_x = f.max_pool2d(f.relu(self.conv1(cur_x)), (2, 2))
-            print(cur_x.shape)
             cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
-            print(cur_x.shape)
             cur_x = cur_x.view(batch_size, -1)
-            print(cur_x.shape)
             cur_x = f.relu(self.fc1(cur_x))
-            print(cur_x.shape)
             cur_x = f.relu(self.fc2(cur_x))
-            print(cur_x.shape)
             cur_x = self.fc3(cur_x)
-            print(cur_x.shape)
 
             scores += torch.div(cur_x, slide_size)
-            print(cur_x.shape)
-            print(scores.shape)
-            print("end")
         scores = f.sigmoid(scores)
         return scores
 
