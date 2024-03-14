@@ -8,13 +8,14 @@ from torchvision.io import read_image
 
 
 class DefaultDataset(Dataset):
-    def __init__(self, annotation_file, max_sequence_len=100, random_seed=None, transform=None, target_transform=None):
+    def __init__(self, annotation_file, max_sequence_len=100, keep_share=0.25, random_seed=None, transform=None, target_transform=None):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
         self.max_sequence_len = max_sequence_len
+        self.keep_share = keep_share
         self.transform = transform
         self.target_transform = target_transform
 
-        random.seed(random_seed)
+        np.random.seed(random_seed)
 
     def __len__(self):
         return len(self.slide_labels)
@@ -22,7 +23,7 @@ class DefaultDataset(Dataset):
     def __getitem__(self, idx):
         slide_path = self.slide_labels.iloc[idx, 0]
 
-        image_path = random.choice(os.listdir(slide_path))
+        image_path = np.random.choice(os.listdir(slide_path))
         image = read_image(slide_path + "/" + image_path)
         image = image / 255
 
@@ -35,6 +36,9 @@ class DefaultDataset(Dataset):
         patches = image.unfold(1, kernel_size, kernel_size).unfold(2, kernel_size, kernel_size)
         patches = patches.contiguous().view(3, self.max_sequence_len, kernel_size, kernel_size)
         patches = patches.swapaxes(0, 1)
+
+        idx_to_keep = np.random.choice(range(len(patches)), size=int(len(patches) * self.keep_share), replace=False)
+        patches = patches[idx_to_keep]
 
         label = self.slide_labels.iloc[idx, 1].astype("int")
         if self.transform:
