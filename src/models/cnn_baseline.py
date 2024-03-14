@@ -23,7 +23,7 @@ class CNNBaseline(torch.nn.Module):
         scores = torch.zeros(size=(batch_size, 2), device=self.device)
         for cur_x in x.permute(1, 0, 2, 3, 4):
             cur_x = f.max_pool2d(f.relu(self.conv1(cur_x)), (2, 2))
-            cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), 2)
+            cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
             cur_x = cur_x.view(batch_size, -1)
             cur_x = f.relu(self.fc1(cur_x))
             cur_x = f.relu(self.fc2(cur_x))
