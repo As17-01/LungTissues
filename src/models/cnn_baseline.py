@@ -39,6 +39,7 @@ class CNNBaseline(torch.nn.Module):
         images, labels = batch
         out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
+        print("TRAIN BATCH")
         del batch
         return loss
 
@@ -47,6 +48,7 @@ class CNNBaseline(torch.nn.Module):
         out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         acc = accuracy(out, labels)  # Calculate accuracy
+        print("VAL BATCH")
         del batch
         return {"val_loss": loss, "val_acc": acc}
 
