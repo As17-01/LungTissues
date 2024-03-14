@@ -87,8 +87,8 @@ def main(cfg: DictConfig) -> None:
     device = get_default_device()
     logger.info(f"Current device is {device}")
 
-    train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv", random_seed=200)
-    valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv", random_seed=200)
+    train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv", keep_share=0.25, random_seed=200)
+    valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv", keep_share=0.25, random_seed=200)
 
     train_dataloader = DataLoader(train_data, batch_size=2, shuffle=True)
     valid_dataloader = DataLoader(valid_data, batch_size=1, shuffle=True)
