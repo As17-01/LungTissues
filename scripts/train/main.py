@@ -73,9 +73,10 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         model.epoch_end(epoch, result)
         history.append(result)
 
-        torch.save(model.state_dict(), save_dir / f"epoch{epoch}.pt")
-        with open(save_dir / f"epoch{epoch}.json", "w") as file:
-            json.dump(history[-1], file)
+        if epoch % 10 == 9:
+            torch.save(model.state_dict(), save_dir / f"epoch{epoch}.pt")
+            with open(save_dir / f"epoch{epoch}.json", "w") as file:
+                json.dump(history[-1], file)
     return history
 
 
@@ -103,7 +104,7 @@ def main(cfg: DictConfig) -> None:
     to_device(model, device)
 
     history = [evaluate(model, valid_dataloader)]
-    history += fit(cfg.training_params.num_epochs, 0.5, model, train_dataloader, valid_dataloader)
+    history += fit(cfg.training_params.num_epochs, 0.05, model, train_dataloader, valid_dataloader)
 
 
 if __name__ == "__main__":

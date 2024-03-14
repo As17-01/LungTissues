@@ -1,3 +1,3 @@
-valid_size: 100
-test_size: 0
+valid_size: 85
+test_size: 85
 state: 60
