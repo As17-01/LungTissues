@@ -18,32 +18,32 @@ class CNNBaseline(torch.nn.Module):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def forward(self, x):
-        batch_size = x.shape[0]
-        slide_size = x.shape[1]
+        cur_x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))
+        cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
+        cur_x = f.max_pool2d(f.relu(self.conv3(cur_x)), (2, 2))
+        cur_x = cur_x.view(x.shape[0], -1)
+        cur_x = f.relu(self.fc1(cur_x))
+        cur_x = f.relu(self.fc2(cur_x))
+        cur_x = self.fc3(cur_x)
 
-        scores = torch.zeros(size=(batch_size, 2), device=self.device)
-        for cur_x in x.permute(1, 0, 2, 3, 4):
-            cur_x = f.max_pool2d(f.relu(self.conv1(cur_x)), (2, 2))
-            cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
-            cur_x = f.max_pool2d(f.relu(self.conv3(cur_x)), (2, 2))
-            cur_x = cur_x.view(batch_size, -1)
-            cur_x = f.relu(self.fc1(cur_x))
-            cur_x = f.relu(self.fc2(cur_x))
-            cur_x = self.fc3(cur_x)
-
-            scores = torch.div(cur_x, slide_size)
-        scores = f.sigmoid(scores)
-        return scores
+        cur_x = f.sigmoid(cur_x)
+        return cur_x
 
     def training_step(self, batch):
         images, labels = batch
-        out = self(images)  # Generate predictions
+
+        out = torch.zeros(size=(images.shape[0], 2), device=self.device)
+        for cur_image in images.permute(1, 0, 2, 3, 4):
+            out += torch.div(self(cur_image), images.shape[1])  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         return loss
 
     def validation_step(self, batch):
         images, labels = batch
-        out = self(images)  # Generate predictions
+
+        out = torch.zeros(size=(images.shape[0], 2), device=self.device)
+        for cur_image in images.permute(1, 0, 2, 3, 4):
+            out += torch.div(self(cur_image), images.shape[1])  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         acc = accuracy(out, labels)  # Calculate accuracy
         return {"val_loss": loss, "val_acc": acc}
