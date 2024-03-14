@@ -31,7 +31,7 @@ class CNNBaseline(torch.nn.Module):
             cur_x = f.relu(self.fc2(cur_x))
             cur_x = self.fc3(cur_x)
 
-            scores += torch.div(cur_x, slide_size)
+            scores = torch.div(cur_x, slide_size)
         scores = f.sigmoid(scores)
         return scores
 
