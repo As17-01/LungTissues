@@ -104,7 +104,7 @@ def main(cfg: DictConfig) -> None:
     to_device(model, device)
 
     history = [evaluate(model, valid_dataloader)]
-    history += fit(cfg.training_params.num_epochs, 0.05, model, train_dataloader, valid_dataloader)
+    history += fit(cfg.training_params.num_epochs, 0.5, model, train_dataloader, valid_dataloader)
 
 
 if __name__ == "__main__":
