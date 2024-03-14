@@ -25,8 +25,6 @@ class CNNBaseline(torch.nn.Module):
         cur_x = f.relu(self.fc1(cur_x))
         cur_x = f.relu(self.fc2(cur_x))
         cur_x = self.fc3(cur_x)
-
-        cur_x = f.sigmoid(cur_x)
         return cur_x
 
     def training_step(self, batch):
