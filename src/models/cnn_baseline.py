@@ -14,11 +14,13 @@ class CNNBaseline(torch.nn.Module):
         self.fc2 = torch.nn.Linear(120, 84)
         self.fc3 = torch.nn.Linear(84, 2)
 
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     def forward(self, x):
         batch_size = x.shape[0]
         slide_size = x.shape[1]
 
-        scores = torch.zeros(size=(batch_size, 2))
+        scores = torch.zeros(size=(batch_size, 2), device=self.device)
         for cur_x in x.permute(1, 0, 2, 3, 4):
             cur_x = f.max_pool2d(f.relu(self.conv1(cur_x)), (2, 2))
             cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), 2)
