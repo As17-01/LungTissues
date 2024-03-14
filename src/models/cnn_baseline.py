@@ -39,6 +39,7 @@ class CNNBaseline(torch.nn.Module):
         images, labels = batch
         out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
+        del batch
         return loss
 
     def validation_step(self, batch):
@@ -46,6 +47,7 @@ class CNNBaseline(torch.nn.Module):
         out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         acc = accuracy(out, labels)  # Calculate accuracy
+        del batch
         return {"val_loss": loss, "val_acc": acc}
 
     def validation_epoch_end(self, outputs):
