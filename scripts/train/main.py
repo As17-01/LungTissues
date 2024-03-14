@@ -73,7 +73,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         model.epoch_end(epoch, result)
         history.append(result)
 
-        if epoch % 10 == 9:
+        if epoch % 100 == 99:
             torch.save(model.state_dict(), save_dir / f"epoch{epoch}.pt")
             with open(save_dir / f"epoch{epoch}.json", "w") as file:
                 json.dump(history[-1], file)
@@ -90,8 +90,8 @@ def main(cfg: DictConfig) -> None:
     train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv", keep_share=0.30, random_seed=200)
     valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv", keep_share=0.30, random_seed=200)
 
-    train_dataloader = DataLoader(train_data, batch_size=16, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, batch_size=1, shuffle=True)
+    train_dataloader = DataLoader(train_data, num_workers=4, batch_size=16, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, num_workers=4, batch_size=1, shuffle=True)
 
     train_dataloader = DeviceDataLoader(train_dataloader, device)
     valid_dataloader = DeviceDataLoader(valid_dataloader, device)
