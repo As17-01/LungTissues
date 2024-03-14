@@ -90,8 +90,8 @@ def main(cfg: DictConfig) -> None:
     train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv", random_seed=200)
     valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv", random_seed=200)
 
-    train_dataloader = DataLoader(train_data, batch_size=1, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, batch_size=1, shuffle=True)
+    train_dataloader = DataLoader(train_data, batch_size=4, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, batch_size=2, shuffle=True)
 
     train_dataloader = DeviceDataLoader(train_dataloader, device)
     valid_dataloader = DeviceDataLoader(valid_dataloader, device)
