@@ -20,7 +20,7 @@ class DefaultDataset(Dataset):
         return len(self.slide_labels)
 
     def __getitem__(self, idx):
-        slide_path = self.slide_labels.loc[idx, "slide_path"]
+        slide_path = self.slide_labels.iloc[idx, 0]
 
         image_path = np.random.choice(os.listdir(slide_path))
         image = read_image(slide_path + "/" + image_path)
@@ -39,7 +39,7 @@ class DefaultDataset(Dataset):
         idx_to_keep = np.random.choice(range(len(patches)), size=int(len(patches) * self.keep_share), replace=False)
         patches = patches[idx_to_keep]
 
-        label = self.slide_labels.loc[idx, "target"].astype("int")
+        label = self.slide_labels.iloc[idx, 1].astype("int")
         if self.transform:
             patches = self.transform(patches)
         if self.target_transform:
