@@ -15,8 +15,6 @@ class SingleCNNBaseline(torch.nn.Module):
         self.fc2 = torch.nn.Linear(120, 84)
         self.fc3 = torch.nn.Linear(84, 2)
 
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
     def forward(self, x):
         cur_x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))
         cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
