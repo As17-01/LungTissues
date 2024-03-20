@@ -87,18 +87,24 @@ def main(cfg: DictConfig) -> None:
     device = get_default_device()
     logger.info(f"Current device is {device}")
 
-    train_data = src.datasets.DefaultDataset(annotation_file=load_dir / "train.csv", keep_share=0.30, random_seed=200)
-    valid_data = src.datasets.DefaultDataset(annotation_file=load_dir / "valid.csv", keep_share=0.30, random_seed=200)
+    cfg_dct = omegaconf.OmegaConf.to_container(cfg, resolve=True)
+    registry = Registry()
+    registry.add_from_module(src.models, prefix="src.models.")
+    registry.add_from_module(src.datasets, prefix="src.datasets.")
+
+    train_cfg = cfg_dct["dataset"].copy()
+    train_cfg["annotation_file"] = load_dir / "train.csv"
+    train_data = registry.get_from_params(**train_cfg["dataset"])
+
+    valid_cfg = cfg_dct["dataset"].copy()
+    valid_cfg["annotation_file"] = load_dir / "valid.csv"
+    valid_data = registry.get_from_params(**valid_cfg["dataset"])
 
     train_dataloader = DataLoader(train_data, num_workers=4, batch_size=16, shuffle=True)
     valid_dataloader = DataLoader(valid_data, num_workers=4, batch_size=1, shuffle=True)
 
     train_dataloader = DeviceDataLoader(train_dataloader, device)
     valid_dataloader = DeviceDataLoader(valid_dataloader, device)
-
-    cfg_dct = omegaconf.OmegaConf.to_container(cfg, resolve=True)
-    registry = Registry()
-    registry.add_from_module(src.models, prefix="src.models.")
 
     model = registry.get_from_params(**cfg_dct["model"])
     to_device(model, device)
