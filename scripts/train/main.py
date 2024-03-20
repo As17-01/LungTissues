@@ -13,9 +13,9 @@ from torch.utils.data import DataLoader
 
 sys.path.append("../../")
 
-import src
 import src.datasets
-import src.models
+import src.models.single
+import src.models.stacked
 
 
 def get_default_device():
@@ -89,16 +89,17 @@ def main(cfg: DictConfig) -> None:
 
     cfg_dct = omegaconf.OmegaConf.to_container(cfg, resolve=True)
     registry = Registry()
-    registry.add_from_module(src.models, prefix="src.models.")
     registry.add_from_module(src.datasets, prefix="src.datasets.")
+    registry.add_from_module(src.models.single, prefix="src.models.single.")
+    registry.add_from_module(src.models.stacked, prefix="src.models.stacked.")
 
     train_cfg = cfg_dct["dataset"].copy()
     train_cfg["annotation_file"] = load_dir / "train.csv"
-    train_data = registry.get_from_params(**train_cfg["dataset"])
+    train_data = registry.get_from_params(**train_cfg)
 
     valid_cfg = cfg_dct["dataset"].copy()
     valid_cfg["annotation_file"] = load_dir / "valid.csv"
-    valid_data = registry.get_from_params(**valid_cfg["dataset"])
+    valid_data = registry.get_from_params(**valid_cfg)
 
     train_dataloader = DataLoader(train_data, num_workers=4, batch_size=16, shuffle=True)
     valid_dataloader = DataLoader(valid_data, num_workers=4, batch_size=1, shuffle=True)
