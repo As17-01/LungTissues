@@ -1,2 +1,2 @@
-from src.datasets.default_dataset import DefaultDataset
-from src.datasets.one_by_one_dataset import OneByOneDataset
+from src.datasets.stacked_dataset import StackedDataset
+from src.datasets.single_dataset import SingleDataset

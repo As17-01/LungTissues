@@ -5,9 +5,9 @@ from loguru import logger
 from src.models.metrics import accuracy
 
 
-class CNNBaseline(torch.nn.Module):
+class SingleCNNBaseline(torch.nn.Module):
     def __init__(self):
-        super(CNNBaseline, self).__init__()
+        super(SingleCNNBaseline, self).__init__()
         self.conv1 = torch.nn.Conv2d(3, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.conv3 = torch.nn.Conv2d(16, 18, 3)
