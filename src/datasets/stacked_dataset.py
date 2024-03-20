@@ -7,7 +7,15 @@ from torchvision.io import read_image
 
 
 class StackedDataset(Dataset):
-    def __init__(self, annotation_file, max_sequence_len=100, keep_share=0.25, random_seed=None, transform=None, target_transform=None):
+    def __init__(
+        self,
+        annotation_file,
+        max_sequence_len=100,
+        keep_share=0.25,
+        random_seed=None,
+        transform=None,
+        target_transform=None,
+    ):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
         self.max_sequence_len = max_sequence_len
         self.keep_share = keep_share

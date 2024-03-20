@@ -41,18 +41,19 @@ class YandexDiskDownloader:
 
             os.remove(save_path_zip)
 
-
     def download(self):
-        images_url = f"https://cloud-api.yandex.net/v1/disk/public/resources?public_key={self.link}&path=/images/&limit=1000"
+        images_url = (
+            f"https://cloud-api.yandex.net/v1/disk/public/resources?public_key={self.link}&path=/images/&limit=1000"
+        )
         images_response = requests.get(images_url)
         all_images = images_response.json()["_embedded"]["items"]
 
         logger.info(f"The total number of images is {len(all_images)}")
         logger.info(f"The chosen batch is {self.batch}")
         for i, file in enumerate(all_images):
-            if  self.batch[0] <= i and i < self.batch[1]:
+            if self.batch[0] <= i and i < self.batch[1]:
                 logger.info(f"File {i + 1}/{len(all_images)}: {file['name']}")
-                self._download_file(path=file['path'], save_dir=self.download_location / "images")
+                self._download_file(path=file["path"], save_dir=self.download_location / "images")
 
         logger.info(f"Loading metadata")
         self._download_file(path="/biospecimen.cart.2024-01-18.json", save_dir=self.download_location, unpack=False)

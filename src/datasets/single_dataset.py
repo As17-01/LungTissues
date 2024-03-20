@@ -21,7 +21,9 @@ class SingleDataset(Dataset):
                     small_image_list.append(i)
                     target_list.append(label)
 
-        self.all_labels = pd.DataFrame({"large_image": large_image_list, "small_image": small_image_list, "target": target_list})
+        self.all_labels = pd.DataFrame(
+            {"large_image": large_image_list, "small_image": small_image_list, "target": target_list}
+        )
 
         self.max_sequence_len = max_sequence_len
         self.transform = transform
