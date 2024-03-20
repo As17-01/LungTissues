@@ -6,24 +6,33 @@ from torch.utils.data import Dataset
 from torchvision.io import read_image
 
 
-class DefaultDataset(Dataset):
-    def __init__(self, annotation_file, max_sequence_len=100, keep_share=0.25, random_seed=None, transform=None, target_transform=None):
+class OneByOneDataset(Dataset):
+    def __init__(self, annotation_file, max_sequence_len=100, transform=None, target_transform=None):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
+
+        large_image = []
+        small_image = []
+        target = []
+        for slide_path, label in zip(self.slide_labels.iloc[:, 0], self.slide_labels.iloc[:, 1]):
+            for large_image in os.listdir(slide_path):
+                full_large_image_path = slide_path + "/" + large_image
+                for i in range(max_sequence_len):
+                    large_image.append(full_large_image_path)
+                    small_image.append(i)
+                    target.append(label)
+
+        self.all_labels = pd.DataFrame({"large_image": large_image, "small_image": small_image, "target": target})
+
         self.max_sequence_len = max_sequence_len
-        self.keep_share = keep_share
         self.transform = transform
         self.target_transform = target_transform
 
-        np.random.seed(random_seed)
-
     def __len__(self):
-        return len(self.slide_labels)
+        return len(self.all_labels)
 
     def __getitem__(self, idx):
-        slide_path = self.slide_labels.loc[idx, "slide_path"]
-
-        image_path = np.random.choice(os.listdir(slide_path))
-        image = read_image(slide_path + "/" + image_path)
+        image_path = self.all_labels.loc[idx, "large_image"]
+        image = read_image(image_path)
         image = image / 255
 
         if int(np.sqrt(self.max_sequence_len)) != np.sqrt(self.max_sequence_len):
@@ -36,10 +45,11 @@ class DefaultDataset(Dataset):
         patches = patches.contiguous().view(3, self.max_sequence_len, kernel_size, kernel_size)
         patches = patches.swapaxes(0, 1)
 
-        idx_to_keep = np.random.choice(range(len(patches)), size=int(len(patches) * self.keep_share), replace=False)
+        idx_to_keep = self.all_labels.loc[idx, "small_image"]
         patches = patches[idx_to_keep]
 
-        label = self.slide_labels.loc[idx, "target"].astype("int")
+        label = self.all_labels.loc[idx, "target"].astype("int")
+
         if self.transform:
             patches = self.transform(patches)
         if self.target_transform:
