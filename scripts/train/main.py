@@ -52,7 +52,8 @@ def evaluate(model, val_loader):
     outputs = []
     logger.info("Evaluating...")
     for i, batch in enumerate(val_loader):
-        logger.info(f"{i} / {len(val_loader)}")
+        if i % 100 == 0:
+            logger.info(f"{i} / {len(val_loader)}")
         outputs.append(model.validation_step(batch))
     return model.validation_epoch_end(outputs)
 
@@ -70,7 +71,8 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         # Training Phase
         logger.info("Training...")
         for i, batch in enumerate(train_loader):
-            logger.info(f"{i} / {len(train_loader)}")
+            if i % 100 == 0:
+                logger.info(f"{i} / {len(train_loader)}")
             loss = model.training_step(batch)
             loss.backward()
             optimizer.step()
