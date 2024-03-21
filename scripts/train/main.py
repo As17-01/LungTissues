@@ -50,7 +50,7 @@ def evaluate(model, val_loader):
     """Evaluate the model's performance."""
     outputs = []
     for i, batch in enumerate(val_loader):
-        if i % 100 == 0:
+        if i % 10 == 0:
             logger.info(f"{i} / {len(val_loader)}")
         outputs.append(model.validation_step(batch))
     return model.validation_epoch_end(outputs)
@@ -68,7 +68,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         logger.info("Training Phase...")
         model.train()
         for i, batch in enumerate(train_loader):
-            if i % 100 == 0:
+            if i % 10 == 0:
                 logger.info(f"{i} / {len(train_loader)}")
             loss = model.training_step(batch)
             loss.backward()
@@ -108,8 +108,8 @@ def main(cfg: DictConfig) -> None:
     valid_cfg["annotation_file"] = load_dir / "valid.csv"
     valid_data = registry.get_from_params(**valid_cfg)
 
-    train_dataloader = DataLoader(train_data, num_workers=8, batch_size=64, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, num_workers=8, batch_size=64, shuffle=False)
+    train_dataloader = DataLoader(train_data, num_workers=8, batch_size=2, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, num_workers=8, batch_size=2, shuffle=False)
 
     train_dataloader = DeviceDataLoader(train_dataloader, device)
     valid_dataloader = DeviceDataLoader(valid_dataloader, device)
