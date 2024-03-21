@@ -6,7 +6,7 @@ from torch.utils.data import Dataset
 from torchvision.io import read_image
 
 
-class StackedDataset(Dataset):
+class RandomDataset(Dataset):
     def __init__(
         self,
         annotation_file,

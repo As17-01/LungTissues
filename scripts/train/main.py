@@ -83,10 +83,9 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
             model.epoch_end(epoch, result)
             history.append(result)
 
-        if epoch % 100 == 99:
-            torch.save(model.state_dict(), save_dir / f"epoch{epoch}.pt")
-            with open(save_dir / f"epoch{epoch}.json", "w") as file:
-                json.dump(history[-1], file)
+        torch.save(model.state_dict(), save_dir / f"epoch{epoch}.pt")
+        with open(save_dir / f"epoch{epoch}.json", "w") as file:
+            json.dump(history[-1], file)
     return history
 
 

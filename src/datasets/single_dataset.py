@@ -11,19 +11,14 @@ class SingleDataset(Dataset):
         self.slide_labels = pd.read_csv(annotation_file, header=None)
 
         large_image_list = []
-        small_image_list = []
         target_list = []
         for slide_path, label in zip(self.slide_labels.iloc[:, 0], self.slide_labels.iloc[:, 1]):
             for large_image in os.listdir(slide_path):
                 full_large_image_path = slide_path + "/" + large_image
-                for i in range(max_sequence_len):
-                    large_image_list.append(full_large_image_path)
-                    small_image_list.append(i)
-                    target_list.append(label)
+                large_image_list.append(full_large_image_path)
+                target_list.append(label)
 
-        self.all_labels = pd.DataFrame(
-            {"large_image": large_image_list, "small_image": small_image_list, "target": target_list}
-        )
+        self.all_labels = pd.DataFrame({"large_image": large_image_list, "target": target_list})
 
         self.max_sequence_len = max_sequence_len
         self.transform = transform
@@ -47,11 +42,7 @@ class SingleDataset(Dataset):
         patches = patches.contiguous().view(3, self.max_sequence_len, kernel_size, kernel_size)
         patches = patches.swapaxes(0, 1)
 
-        idx_to_keep = self.all_labels.iloc[idx, 1]
-        patches = patches[idx_to_keep]
-
-        label = self.all_labels.iloc[idx, 2].astype("int")
-
+        label = self.all_labels.iloc[idx, 1].astype("int")
         if self.transform:
             patches = self.transform(patches)
         if self.target_transform:
