@@ -3,7 +3,7 @@
 #SBATCH --error=lung_tissues_train_cnn_baseline-%j.err                # Файл для вывода ошибок 
 #SBATCH --output=lung_tissues_train_cnn_baseline-%j.log               # Файл для вывода результатов 
 #SBATCH --time=00:60:00                     # Максимальное время выполнения 
-#SBATCH --cpus-per-task=4                   # Количество CPU на одну задачу
+#SBATCH --cpus-per-task=8                   # Количество CPU на одну задачу
 #SBATCH --nodes=1                           # Требуемое кол-во узлов 
 #SBATCH --gpus=1                            # Требуемое кол-во GPU
 

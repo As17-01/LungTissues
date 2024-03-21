@@ -111,8 +111,8 @@ def main(cfg: DictConfig) -> None:
     valid_cfg["annotation_file"] = load_dir / "valid.csv"
     valid_data = registry.get_from_params(**valid_cfg)
 
-    train_dataloader = DataLoader(train_data, num_workers=4, batch_size=32, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, num_workers=4, batch_size=32, shuffle=False)
+    train_dataloader = DataLoader(train_data, num_workers=8, batch_size=64, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, num_workers=8, batch_size=64, shuffle=False)
 
     train_dataloader = DeviceDataLoader(train_dataloader, device)
     valid_dataloader = DeviceDataLoader(valid_dataloader, device)
