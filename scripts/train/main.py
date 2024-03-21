@@ -50,7 +50,6 @@ class DeviceDataLoader:
 def evaluate(model, val_loader):
     """Evaluate the model's performance."""
     outputs = []
-    logger.info("Evaluating...")
     for i, batch in enumerate(val_loader):
         if i % 100 == 0:
             logger.info(f"{i} / {len(val_loader)}")
@@ -67,9 +66,8 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
     history = []
     optimizer = opt_func(model.parameters(), lr)
     for epoch in range(epochs):
+        logger.info("Training Phase...")
         model.train()
-        # Training Phase
-        logger.info("Training...")
         for i, batch in enumerate(train_loader):
             if i % 100 == 0:
                 logger.info(f"{i} / {len(train_loader)}")
@@ -78,10 +76,9 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
             optimizer.step()
             optimizer.zero_grad()
 
-        # Validation phase
+        logger.info("Validation phase...")
         with torch.no_grad():
             model.eval()
-
             result = evaluate(model, val_loader)
             model.epoch_end(epoch, result)
             history.append(result)
@@ -126,6 +123,7 @@ def main(cfg: DictConfig) -> None:
     with torch.no_grad():
         model.eval()
         history = [evaluate(model, valid_dataloader)]
+
     history += fit(cfg.training_params.num_epochs, 0.5, model, train_dataloader, valid_dataloader)
 
 
