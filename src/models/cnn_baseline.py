@@ -5,15 +5,17 @@ from loguru import logger
 from src.models.metrics import accuracy
 
 
-class SingleCNNBaseline(torch.nn.Module):
+class CNNBaseline(torch.nn.Module):
     def __init__(self):
-        super(SingleCNNBaseline, self).__init__()
+        super(CNNBaseline, self).__init__()
         self.conv1 = torch.nn.Conv2d(3, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.conv3 = torch.nn.Conv2d(16, 18, 3)
         self.fc1 = torch.nn.Linear(18 * 35 * 35, 120)
         self.fc2 = torch.nn.Linear(120, 84)
         self.fc3 = torch.nn.Linear(84, 2)
+
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def forward(self, x):
         cur_x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))
@@ -28,14 +30,18 @@ class SingleCNNBaseline(torch.nn.Module):
     def training_step(self, batch):
         images, labels = batch
 
-        out = self(images)  # Generate predictions
+        out = torch.zeros(size=(images.shape[0], 2), device=self.device)
+        for cur_image in images.permute(1, 0, 2, 3, 4):
+            out += torch.div(self(cur_image), images.shape[1])  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         return loss
 
     def validation_step(self, batch):
         images, labels = batch
 
-        out = self(images)  # Generate predictions
+        out = torch.zeros(size=(images.shape[0], 2), device=self.device)
+        for cur_image in images.permute(1, 0, 2, 3, 4):
+            out += torch.div(self(cur_image), images.shape[1])  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         acc = accuracy(out, labels)  # Calculate accuracy
         return {"val_loss": loss, "val_acc": acc}
