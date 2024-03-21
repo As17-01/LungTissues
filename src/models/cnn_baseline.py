@@ -38,8 +38,12 @@ class CNNBaseline(torch.nn.Module):
 
     def validation_step(self, batch):
         images, labels = batch
+        print(images.shape)
         images = images.view(-1, *images.shape[-3:])
+        print(images.shape)
+        print(labels.shape)
         labels = labels.repeat_interleave(images.shape[0])
+        print(labels.shape)
 
         out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
