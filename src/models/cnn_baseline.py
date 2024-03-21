@@ -29,19 +29,19 @@ class CNNBaseline(torch.nn.Module):
 
     def training_step(self, batch):
         images, labels = batch
+        images = images.view(-1, *images.shape[-3:])
+        labels = labels.repeat_interleave(images.shape[0])
 
-        out = torch.zeros(size=(images.shape[0], 2), device=self.device)
-        for cur_image in images.permute(1, 0, 2, 3, 4):
-            out += torch.div(self(cur_image), images.shape[1])  # Generate predictions
+        out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         return loss
 
     def validation_step(self, batch):
         images, labels = batch
+        images = images.view(-1, *images.shape[-3:])
+        labels = labels.repeat_interleave(images.shape[0])
 
-        out = torch.zeros(size=(images.shape[0], 2), device=self.device)
-        for cur_image in images.permute(1, 0, 2, 3, 4):
-            out += torch.div(self(cur_image), images.shape[1])  # Generate predictions
+        out = self(images)  # Generate predictions
         loss = f.cross_entropy(out, labels)  # Calculate loss
         acc = accuracy(out, labels)  # Calculate accuracy
         return {"val_loss": loss, "val_acc": acc}
