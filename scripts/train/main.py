@@ -108,8 +108,13 @@ def main(cfg: DictConfig) -> None:
     valid_cfg["annotation_file"] = load_dir / "valid.csv"
     valid_data = registry.get_from_params(**valid_cfg)
 
-    train_dataloader = DataLoader(train_data, num_workers=4, batch_size=8, shuffle=True)
-    valid_dataloader = DataLoader(valid_data, num_workers=4, batch_size=8, shuffle=False)
+    num_workers = cfg.training_params.num_workers
+    batch_size = cfg.training_params.batch_size
+    lr = cfg.training_params.learning_rate
+    num_epochs = cfg.training_params.num_epochs
+
+    train_dataloader = DataLoader(train_data, num_workers=num_workers, batch_size=batch_size, shuffle=True)
+    valid_dataloader = DataLoader(valid_data, num_workers=num_workers, batch_size=batch_size, shuffle=False)
 
     train_dataloader = DeviceDataLoader(train_dataloader, device)
     valid_dataloader = DeviceDataLoader(valid_dataloader, device)
@@ -121,7 +126,7 @@ def main(cfg: DictConfig) -> None:
         model.eval()
         history = [evaluate(model, valid_dataloader)]
 
-    history += fit(cfg.training_params.num_epochs, 0.01, model, train_dataloader, valid_dataloader)
+    history += fit(num_epochs, lr, model, train_dataloader, valid_dataloader)
 
 
 if __name__ == "__main__":
