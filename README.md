@@ -10,9 +10,17 @@ Their Git repository:
 
 `https://github.com/ncoudray/DeepPATH/`
 
-Data could be downloaded from `https://disk.yandex.com/d/yEbNmJRmKvaXiA` (not guaranteed to be supported):
+## Data
 
-Or the slides could be downloaded directly from the source (Check `scripts/preprocess` directory)
+Data could be downloaded from `https://disk.yandex.com/d/yEbNmJRmKvaXiA` (not guaranteed to be supported) using `./scripts/download/main.py`. There is a limitation on how many files you can download at a time, so it required to update the link every 100 files. Contact me if it is needed. TODO: Find an alternative to store the data.
+
+Or the slides in the required format can be directly downloaded from `https://portal.gdc.cancer.gov/cart`. Example:
+
+![Alt text](download_data_example.jpg?raw=true "Download Data Example")
+
+The resulting structure of the `./data` folder should be the following. Note that each image file should be placed inside `file_name/file_name` folder for consistency with the Yandex Drive downloading data method. TODO: Rework downloading data script:
+
+![Alt text](data_structure_example.png?raw=true "Data Structure Example")
 
 ## Installation
 
