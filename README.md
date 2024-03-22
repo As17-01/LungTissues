@@ -14,7 +14,7 @@ Their Git repository:
 
 Data could be downloaded from `https://disk.yandex.com/d/yEbNmJRmKvaXiA` (not guaranteed to be supported) using `./scripts/download/main.py`. There is a limitation on how many files you can download at a time, so it required to update the link every 100 files. Contact me if it is needed. TODO: Find an alternative to store the data.
 
-Or the slides in the required format can be directly downloaded from `https://portal.gdc.cancer.gov/cart`. Example:
+Or the slides in the required format can be directly downloaded from `https://portal.gdc.cancer.gov/cart`. I downloaded 424 slides from there. They were chosen randomly from all slides of the same category. Example:
 
 ![Alt text](download_data_example.jpg?raw=true "Download Data Example")
 
