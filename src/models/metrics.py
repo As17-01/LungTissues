@@ -2,5 +2,5 @@ import torch
 
 
 def accuracy(outputs, labels):
-    _, preds = torch.max(outputs, dim=1)
+    preds = torch.where(outputs > 0.5, 1.0, 0.0)
     return torch.tensor(torch.sum(preds == labels).item() / len(preds))

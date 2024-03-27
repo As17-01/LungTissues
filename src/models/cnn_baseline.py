@@ -13,7 +13,7 @@ class CNNBaseline(torch.nn.Module):
         self.conv3 = torch.nn.Conv2d(16, 18, 3)
         self.fc1 = torch.nn.Linear(18 * 35 * 35, 120)
         self.fc2 = torch.nn.Linear(120, 84)
-        self.fc3 = torch.nn.Linear(84, 2)
+        self.fc3 = torch.nn.Linear(84, 1)
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -24,27 +24,31 @@ class CNNBaseline(torch.nn.Module):
         cur_x = cur_x.view(x.shape[0], -1)
         cur_x = f.relu(self.fc1(cur_x))
         cur_x = f.relu(self.fc2(cur_x))
-        cur_x = self.fc3(cur_x)
+        cur_x = f.sigmoid(self.fc3(cur_x))
+
         return cur_x
 
     def training_step(self, batch):
         images, labels = batch
 
         labels = labels.repeat_interleave(images.shape[1])
+        labels = labels.unsqueeze(1).to(torch.float32)
         images = images.view(-1, *images.shape[-3:])
 
         out = self(images)  # Generate predictions
-        loss = f.cross_entropy(out, labels)  # Calculate loss
+        loss = f.binary_cross_entropy(out, labels)  # Calculate loss
         return loss
 
     def validation_step(self, batch):
         images, labels = batch
 
         labels = labels.repeat_interleave(images.shape[1])
+        labels = labels.unsqueeze(1).to(torch.float32)
         images = images.view(-1, *images.shape[-3:])
 
         out = self(images)  # Generate predictions
-        loss = f.cross_entropy(out, labels)  # Calculate loss
+
+        loss = f.binary_cross_entropy(out, labels)  # Calculate loss
         acc = accuracy(out, labels)  # Calculate accuracy
         return {"val_loss": loss, "val_acc": acc}
 
