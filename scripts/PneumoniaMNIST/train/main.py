@@ -95,18 +95,18 @@ def main(cfg: DictConfig) -> None:
     device = get_default_device()
     logger.info(f"Current device is {device}")
 
+    num_workers = cfg.training_params.num_workers
+    batch_size = cfg.training_params.batch_size
+    lr = cfg.training_params.learning_rate
+    num_epochs = cfg.training_params.num_epochs
+
     cfg_dct = omegaconf.OmegaConf.to_container(cfg, resolve=True)
     registry = Registry()
     registry.add_from_module(src.datasets, prefix="src.datasets.")
     registry.add_from_module(src.models, prefix="src.models.")
 
-    train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=False)
-    valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=False)
-
-    num_workers = cfg.training_params.num_workers
-    batch_size = cfg.training_params.batch_size
-    lr = cfg.training_params.learning_rate
-    num_epochs = cfg.training_params.num_epochs
+    train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=True)
+    valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=True)
 
     train_dataloader = DataLoader(train_data, num_workers=num_workers, batch_size=batch_size, shuffle=True)
     valid_dataloader = DataLoader(valid_data, num_workers=num_workers, batch_size=batch_size, shuffle=False)
