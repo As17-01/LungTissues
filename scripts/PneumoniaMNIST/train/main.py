@@ -6,12 +6,12 @@ import sys
 import hydra
 import omegaconf
 import torch
+import torchvision.transforms as transforms
 from hydra_slayer import Registry
 from loguru import logger
+from medmnist import PneumoniaMNIST
 from omegaconf import DictConfig
 from torch.utils.data import DataLoader
-from medmnist import PneumoniaMNIST
-import torchvision.transforms as transforms
 
 sys.path.append("../../../")
 
@@ -102,7 +102,6 @@ def main(cfg: DictConfig) -> None:
 
     train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=False)
     valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=False)
-    # test = PneumoniaMNIST(split="test", transform=transforms.ToTensor(), download=False)
 
     num_workers = cfg.training_params.num_workers
     batch_size = cfg.training_params.batch_size

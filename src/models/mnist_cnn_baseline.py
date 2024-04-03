@@ -1,9 +1,9 @@
 import torch
 import torch.nn.functional as f
 from loguru import logger
+from torcheval.metrics import BinaryAUROC
 
 from src.models.metrics import accuracy
-from torcheval.metrics import BinaryAUROC
 
 
 class MNISTCNNBaseline(torch.nn.Module):
@@ -73,5 +73,7 @@ class MNISTCNNBaseline(torch.nn.Module):
 
     def epoch_end(self, epoch, result):
         logger.info(
-            "Epoch [{}], val_loss: {:.4f}, val_acc: {:.4f}, val_roc_auc: {:.4f}".format(epoch, result["val_loss"], result["val_acc"], result["val_roc_auc"])
+            "Epoch [{}], val_loss: {:.4f}, val_acc: {:.4f}, val_roc_auc: {:.4f}".format(
+                epoch, result["val_loss"], result["val_acc"], result["val_roc_auc"]
+            )
         )

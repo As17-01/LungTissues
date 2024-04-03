@@ -52,7 +52,7 @@ def evaluate(model, val_loader):
     for i, batch in enumerate(val_loader):
         if i % 1000 == 0:
             logger.info(f"{i} / {len(val_loader)}")
-        
+
         # TODO: check instances
         outputs.append(model.validation_step(batch, expand=True))
     return model.validation_epoch_end(outputs)

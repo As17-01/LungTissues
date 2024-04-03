@@ -48,7 +48,6 @@ def get_slides_path(load_dir: pathlib.Path, save_dir: pathlib.Path) -> List[path
 def create_file_case_mapping(metadata) -> Dict[str, Any]:
     file_case_mapping = {}
     for file in metadata:
-        # See https://github.com/ncoudray/DeepPATH/blob/2d0c25e22820559a3c2698e651c233c06b65a7a2/DeepPATH_code/00_preprocessing/0d_SortTiles.py#L52
         file_case_mapping[file["file_id"]] = file["associated_entities"][0]["case_id"]
     return file_case_mapping
 
@@ -56,7 +55,6 @@ def create_file_case_mapping(metadata) -> Dict[str, Any]:
 def create_case_sample_type_mapping(biospecimen) -> Dict[str, Any]:
     case_sample_type_mapping = {}
     for case in biospecimen:
-        # See https://github.com/ncoudray/DeepPATH/blob/2d0c25e22820559a3c2698e651c233c06b65a7a2/DeepPATH_code/00_preprocessing/0d_SortTiles.py#L52
         case_sample_type_mapping[case["case_id"]] = case["samples"][0]["sample_type"]
     return case_sample_type_mapping
 
