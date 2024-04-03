@@ -10,6 +10,7 @@ from hydra_slayer import Registry
 from loguru import logger
 from omegaconf import DictConfig
 from torch.utils.data import DataLoader
+from medmnist import PneumoniaMNIST
 
 sys.path.append("../../../")
 
@@ -52,7 +53,7 @@ def evaluate(model, val_loader):
     for i, batch in enumerate(val_loader):
         if i % 1000 == 0:
             logger.info(f"{i} / {len(val_loader)}")
-        outputs.append(model.validation_step(batch))
+        outputs.append(model.validation_step(batch, expand=False))
     return model.validation_epoch_end(outputs)
 
 
@@ -70,7 +71,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         for i, batch in enumerate(train_loader):
             if i % 1000 == 0:
                 logger.info(f"{i} / {len(train_loader)}")
-            loss = model.training_step(batch)
+            loss = model.training_step(batch, expand=False)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -100,13 +101,9 @@ def main(cfg: DictConfig) -> None:
     registry.add_from_module(src.datasets, prefix="src.datasets.")
     registry.add_from_module(src.models, prefix="src.models.")
 
-    train_cfg = cfg_dct["dataset"].copy()
-    train_cfg["annotation_file"] = load_dir / "train.csv"
-    train_data = registry.get_from_params(**train_cfg)
-
-    valid_cfg = cfg_dct["dataset"].copy()
-    valid_cfg["annotation_file"] = load_dir / "valid.csv"
-    valid_data = registry.get_from_params(**valid_cfg)
+    train_data = PneumoniaMNIST(split="train", download=False)
+    valid_data = PneumoniaMNIST(split="valid", download=False)
+    # test = PneumoniaMNIST(split="test", download=False)
 
     num_workers = cfg.training_params.num_workers
     batch_size = cfg.training_params.batch_size

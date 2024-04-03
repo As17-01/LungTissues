@@ -1,9 +1,5 @@
-# Download data from Yandex Disk
+# Download MNIST data
 
 Download data:
 
 `python main.py`
-
-# Configuration
-
-TODO: Describe this section

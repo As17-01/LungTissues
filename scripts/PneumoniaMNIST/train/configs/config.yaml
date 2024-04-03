@@ -1,5 +1,3 @@
 defaults:
-  - data: default
   - training_params: default
-  - dataset: ???
   - model: ???

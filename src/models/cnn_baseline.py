@@ -28,23 +28,25 @@ class CNNBaseline(torch.nn.Module):
 
         return cur_x
 
-    def training_step(self, batch):
+    def training_step(self, batch, expand):
         images, labels = batch
 
-        labels = labels.repeat_interleave(images.shape[1])
-        labels = labels.unsqueeze(1).to(torch.float32)
-        images = images.view(-1, *images.shape[-3:])
+        if expand:
+            labels = labels.repeat_interleave(images.shape[1])
+            labels = labels.unsqueeze(1).to(torch.float32)
+            images = images.view(-1, *images.shape[-3:])
 
         out = self(images)  # Generate predictions
         loss = f.binary_cross_entropy(out, labels)  # Calculate loss
         return loss
 
-    def validation_step(self, batch):
+    def validation_step(self, batch, expand):
         images, labels = batch
 
-        labels = labels.repeat_interleave(images.shape[1])
-        labels = labels.unsqueeze(1).to(torch.float32)
-        images = images.view(-1, *images.shape[-3:])
+        if expand:
+            labels = labels.repeat_interleave(images.shape[1])
+            labels = labels.unsqueeze(1).to(torch.float32)
+            images = images.view(-1, *images.shape[-3:])
 
         out = self(images)  # Generate predictions
 
