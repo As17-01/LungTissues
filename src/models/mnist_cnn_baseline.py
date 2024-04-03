@@ -6,13 +6,12 @@ from src.models.metrics import accuracy
 from torcheval.metrics import BinaryAUROC
 
 
-class CNNBaseline(torch.nn.Module):
+class MNISTCNNBaseline(torch.nn.Module):
     def __init__(self):
-        super(CNNBaseline, self).__init__()
-        self.conv1 = torch.nn.Conv2d(3, 6, 5)
+        super(MNISTCNNBaseline, self).__init__()
+        self.conv1 = torch.nn.Conv2d(1, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
-        self.conv3 = torch.nn.Conv2d(16, 18, 3)
-        self.fc1 = torch.nn.Linear(18 * 35 * 35, 120)
+        self.fc1 = torch.nn.Linear(16 * 5 * 5, 120)
         self.fc2 = torch.nn.Linear(120, 84)
         self.fc3 = torch.nn.Linear(84, 1)
 
@@ -21,7 +20,6 @@ class CNNBaseline(torch.nn.Module):
     def forward(self, x):
         cur_x = f.max_pool2d(f.relu(self.conv1(x)), (2, 2))
         cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
-        cur_x = f.max_pool2d(f.relu(self.conv3(cur_x)), (2, 2))
         cur_x = cur_x.view(x.shape[0], -1)
         cur_x = f.relu(self.fc1(cur_x))
         cur_x = f.relu(self.fc2(cur_x))

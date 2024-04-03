@@ -11,6 +11,7 @@ from loguru import logger
 from omegaconf import DictConfig
 from torch.utils.data import DataLoader
 from medmnist import PneumoniaMNIST
+import torchvision.transforms as transforms
 
 sys.path.append("../../../")
 
@@ -91,8 +92,6 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
 
 @hydra.main(config_path="configs", config_name="config", version_base="1.2")
 def main(cfg: DictConfig) -> None:
-    load_dir = pathlib.Path(cfg.data.load_dir)
-
     device = get_default_device()
     logger.info(f"Current device is {device}")
 
@@ -101,9 +100,9 @@ def main(cfg: DictConfig) -> None:
     registry.add_from_module(src.datasets, prefix="src.datasets.")
     registry.add_from_module(src.models, prefix="src.models.")
 
-    train_data = PneumoniaMNIST(split="train", download=False)
-    valid_data = PneumoniaMNIST(split="valid", download=False)
-    # test = PneumoniaMNIST(split="test", download=False)
+    train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=False)
+    valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=False)
+    # test = PneumoniaMNIST(split="test", transform=transforms.ToTensor(), download=False)
 
     num_workers = cfg.training_params.num_workers
     batch_size = cfg.training_params.batch_size

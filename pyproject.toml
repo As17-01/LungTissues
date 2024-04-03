@@ -31,6 +31,7 @@ tensorboard = "^2.15.1"
 ncps = "^0.0.7"
 requests = "^2.31.0"
 medmnist = "^3.0.1"
+torcheval = "^0.0.7"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^3.0.0"
