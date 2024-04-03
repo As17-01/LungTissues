@@ -15,7 +15,7 @@ import openslide
 from loguru import logger
 from omegaconf import DictConfig
 
-sys.path.append("../../")
+sys.path.append("../../../")
 
 from src.tilers import DeepZoomStaticTiler
 
