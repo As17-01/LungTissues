@@ -3,7 +3,6 @@ import json
 import pathlib
 
 import torch
-from loguru import logger
 
 
 def get_default_device():
