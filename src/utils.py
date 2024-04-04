@@ -39,8 +39,8 @@ def evaluate(model, val_loader):
     """Evaluate the model's performance."""
     outputs = []
     for i, batch in enumerate(val_loader):
-        if i % 1000 == 0:
-            logger.info(f"{i} / {len(val_loader)}")
+        # if i % 1000 == 0:
+        #     logger.info(f"{i} / {len(val_loader)}")
 
         # TODO: check instances
         outputs.append(model.validation_step(batch, expand=True))
@@ -56,11 +56,11 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
     history = []
     optimizer = opt_func(model.parameters(), lr)
     for epoch in range(epochs):
-        logger.info("Training Phase...")
+        # logger.info("Training Phase...")
         model.train()
         for i, batch in enumerate(train_loader):
-            if i % 1000 == 0:
-                logger.info(f"{i} / {len(train_loader)}")
+            # if i % 1000 == 0:
+            #     logger.info(f"{i} / {len(train_loader)}")
 
             # TODO: check instances
             loss = model.training_step(batch, expand=True)
@@ -68,7 +68,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
             optimizer.step()
             optimizer.zero_grad()
 
-        logger.info("Validation phase...")
+        # logger.info("Validation phase...")
         with torch.no_grad():
             model.eval()
             result = evaluate(model, val_loader)
