@@ -1,6 +1,5 @@
 import torch
 import torch.nn.functional as f
-from ncps.torch import LTC
 
 from src.models.base import BaseModel
 from src.utils import get_default_device
@@ -13,6 +12,7 @@ class MNISTLSTMBaseline(BaseModel):
         self.fc1 = torch.nn.Linear(40, 1)
 
     def forward(self, x):
+        # It resets hidden state
         hidden = (
             torch.autograd.Variable(torch.zeros(2, 40, device=get_default_device())),
             torch.autograd.Variable(torch.zeros(2, 40, device=get_default_device())),
