@@ -34,7 +34,7 @@ class DeviceDataLoader:
         return len(self.dl)
 
 
-def evaluate(model, val_loader):
+def evaluate(model, val_loader, expand: bool):
     """Evaluate the model's performance."""
     outputs = []
     for i, batch in enumerate(val_loader):
@@ -42,11 +42,11 @@ def evaluate(model, val_loader):
         #     logger.info(f"{i} / {len(val_loader)}")
 
         # TODO: check instances
-        outputs.append(model.validation_step(batch, expand=True))
+        outputs.append(model.validation_step(batch, expand=expand))
     return model.validation_epoch_end(outputs)
 
 
-def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
+def fit(epochs, lr, model, train_loader, val_loader, expand: bool, opt_func=torch.optim.Adam):
     """Train the model using gradient descent."""
     current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     save_dir = pathlib.Path(f"./saved_models/{current_time}")
@@ -62,7 +62,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
             #     logger.info(f"{i} / {len(train_loader)}")
 
             # TODO: check instances
-            loss = model.training_step(batch, expand=True)
+            loss = model.training_step(batch, expand=expand)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -70,7 +70,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         # logger.info("Validation phase...")
         with torch.no_grad():
             model.eval()
-            result = evaluate(model, val_loader)
+            result = evaluate(model, val_loader, expand=expand)
             model.epoch_end(epoch, result)
             history.append(result)
 

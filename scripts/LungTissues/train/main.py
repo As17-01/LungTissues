@@ -52,9 +52,9 @@ def main(cfg: DictConfig) -> None:
 
     with torch.no_grad():
         model.eval()
-        history = [src.utils.evaluate(model, valid_dataloader)]
+        history = [src.utils.evaluate(model, valid_dataloader, expand=True)]
 
-    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader)
+    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, expand=True)
 
 
 if __name__ == "__main__":

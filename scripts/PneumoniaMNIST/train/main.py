@@ -32,9 +32,9 @@ def main(cfg: DictConfig) -> None:
     registry.add_from_module(src.datasets, prefix="src.datasets.")
     registry.add_from_module(src.models, prefix="src.models.")
 
-    train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=True)
-    valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=True)
-    test_data = PneumoniaMNIST(split="test", transform=transforms.ToTensor(), download=True)
+    train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=False)
+    valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=False)
+    test_data = PneumoniaMNIST(split="test", transform=transforms.ToTensor(), download=False)
 
     train_dataloader = DataLoader(train_data, num_workers=num_workers, batch_size=batch_size, shuffle=True)
     valid_dataloader = DataLoader(valid_data, num_workers=num_workers, batch_size=batch_size, shuffle=False)
@@ -49,14 +49,14 @@ def main(cfg: DictConfig) -> None:
 
     with torch.no_grad():
         model.eval()
-        history = [src.utils.evaluate(model, valid_dataloader)]
+        history = [src.utils.evaluate(model, valid_dataloader, expand=True)]
 
-    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader)
+    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, expand=True)
 
     with torch.no_grad():
         model.eval()
         logger.info("Test Metrics:")
-        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader))
+        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, expand=True))
 
 
 if __name__ == "__main__":
