@@ -20,7 +20,6 @@ class MNISTLiquidBaseline(BaseModel):
         hidden2 = torch.zeros(x.shape[0], 64, device=get_default_device())
         hidden3 = torch.zeros(x.shape[0], 32, device=get_default_device())
 
-
         cur_x = x.view(x.shape[0], -1)
         cur_x = f.relu(self.fc1(cur_x))
 
@@ -32,5 +31,5 @@ class MNISTLiquidBaseline(BaseModel):
         cur_x = f.sigmoid(self.fc2(cur_x))
 
         cur_x = cur_x.squeeze(1)
-        
+
         return cur_x
