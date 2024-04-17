@@ -1,4 +1,6 @@
 from src.models.cnn_baseline import CNNBaseline
+from src.models.mnist3d.mnist_cnn_baseline import MNIST3dCNNBaseline
+from src.models.mnist3d.mnist_liquid_baseline import MNIST3dLiquidBaseline
 from src.models.mnist2d.mnist_cnn_baseline import MNIST2dCNNBaseline
 from src.models.mnist2d.mnist_linear_baseline import MNIST2dLinearBaseline
 from src.models.mnist2d.mnist_cnn_with_1_liquid import MNIST2dCNNWith1Liquid

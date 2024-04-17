@@ -7,30 +7,37 @@ from src.models.metrics import accuracy
 
 
 class BaseModel(torch.nn.Module):
-    def training_step(self, batch, expand):
+    def training_step(self, batch, time_dimension=None):
         images, labels = batch
+        if time_dimension is not None:
+            images = torch.swapaxes(images, time_dimension, 2)
+        images = images.to(torch.float32)
 
-        if expand:
-            labels = labels.repeat_interleave(images.shape[1])
-            labels = labels.unsqueeze(1).to(torch.float32)
-            images = images.view(-1, *images.shape[-3:])
-        else:
-            labels = labels.to(torch.float32)
-
+        # if expand:
+        #     labels = labels.repeat_interleave(images.shape[1])
+        #     labels = labels.unsqueeze(1).to(torch.float32)
+        #     images = images.view(-1, *images.shape[-3:])
+        # else:
+        
+        labels = labels.to(torch.float32)
         out = self(images)  # Generate predictions
+
         loss = f.binary_cross_entropy(out, labels)  # Calculate loss
         return loss
 
-    def validation_step(self, batch, expand):
+    def validation_step(self, batch, time_dimension=None):
         images, labels = batch
+        if time_dimension is not None:
+            images = torch.swapaxes(images, time_dimension, 2)
+        images = images.to(torch.float32)
 
-        if expand:
-            labels = labels.repeat_interleave(images.shape[1])
-            labels = labels.unsqueeze(1).to(torch.float32)
-            images = images.view(-1, *images.shape[-3:])
-        else:
-            labels = labels.to(torch.float32)
-
+        # if expand:
+        #     labels = labels.repeat_interleave(images.shape[1])
+        #     labels = labels.unsqueeze(1).to(torch.float32)
+        #     images = images.view(-1, *images.shape[-3:])
+        # else:
+        
+        labels = labels.to(torch.float32)
         out = self(images)  # Generate predictions
 
         loss = f.binary_cross_entropy(out, labels)  # Calculate loss

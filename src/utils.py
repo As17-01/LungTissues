@@ -35,7 +35,7 @@ class DeviceDataLoader:
         return len(self.dl)
 
 
-def evaluate(model, val_loader, expand: bool):
+def evaluate(model, val_loader, time_dimension=None):
     """Evaluate the model's performance."""
     outputs = []
     for i, batch in enumerate(val_loader):
@@ -43,7 +43,7 @@ def evaluate(model, val_loader, expand: bool):
         #     logger.info(f"{i} / {len(val_loader)}")
 
         # TODO: check instances
-        outputs.append(model.validation_step(batch, expand=expand))
+        outputs.append(model.validation_step(batch, time_dimension=time_dimension))
     return model.validation_epoch_end(outputs)
 
 
@@ -65,7 +65,7 @@ class EarlyStopper:
         return False
 
 
-def fit(epochs, lr, model, train_loader, val_loader, expand: bool, opt_func=torch.optim.Adam):
+def fit(epochs, lr, model, train_loader, val_loader, time_dimension=None, opt_func=torch.optim.Adam):
     """Train the model using gradient descent."""
     current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     save_dir = pathlib.Path(f"./saved_models/{current_time}")
@@ -82,7 +82,7 @@ def fit(epochs, lr, model, train_loader, val_loader, expand: bool, opt_func=torc
             #     logger.info(f"{i} / {len(train_loader)}")
 
             # TODO: check instances
-            loss = model.training_step(batch, expand=expand)
+            loss = model.training_step(batch, time_dimension=time_dimension)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -90,7 +90,7 @@ def fit(epochs, lr, model, train_loader, val_loader, expand: bool, opt_func=torc
         # logger.info("Validation phase...")
         with torch.no_grad():
             model.eval()
-            result = evaluate(model, val_loader, expand=expand)
+            result = evaluate(model, val_loader, time_dimension=time_dimension)
             model.epoch_end(epoch, result)
             history.append(result)
 
