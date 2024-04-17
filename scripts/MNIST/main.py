@@ -1,12 +1,12 @@
 import sys
 
 import hydra
+import medmnist
 import omegaconf
 import torch
 import torchvision.transforms as transforms
 from hydra_slayer import Registry
 from loguru import logger
-from medmnist import PneumoniaMNIST
 from omegaconf import DictConfig
 from torch.utils.data import DataLoader
 
@@ -32,9 +32,9 @@ def main(cfg: DictConfig) -> None:
     registry.add_from_module(src.datasets, prefix="src.datasets.")
     registry.add_from_module(src.models, prefix="src.models.")
 
-    train_data = PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=False)
-    valid_data = PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=False)
-    test_data = PneumoniaMNIST(split="test", transform=transforms.ToTensor(), download=False)
+    train_data = medmnist.PneumoniaMNIST(split="train", transform=transforms.ToTensor(), download=True)
+    valid_data = medmnist.PneumoniaMNIST(split="val", transform=transforms.ToTensor(), download=True)
+    test_data = medmnist.PneumoniaMNIST(split="test", transform=transforms.ToTensor(), download=True)
 
     train_dataloader = DataLoader(train_data, num_workers=num_workers, batch_size=batch_size, shuffle=True)
     valid_dataloader = DataLoader(valid_data, num_workers=num_workers, batch_size=batch_size, shuffle=False)
