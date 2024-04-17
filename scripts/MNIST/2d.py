@@ -10,7 +10,7 @@ from loguru import logger
 from omegaconf import DictConfig
 from torch.utils.data import DataLoader
 
-sys.path.append("../../")
+sys.path.append("../../../")
 
 import src.datasets
 import src.models

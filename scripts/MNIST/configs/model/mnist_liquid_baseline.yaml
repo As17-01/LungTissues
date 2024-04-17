@@ -1,1 +1,1 @@
-_target_: src.models.MNISTLiquidBaseline
+_target_: src.models.MNIST2dLiquidBaseline

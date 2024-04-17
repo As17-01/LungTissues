@@ -1,1 +1,1 @@
-_target_: src.models.MNISTLSTMBaseline
+_target_: src.models.MNIST2dLSTMBaseline
