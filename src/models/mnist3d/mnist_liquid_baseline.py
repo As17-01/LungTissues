@@ -24,7 +24,7 @@ class MNIST3dLiquidBaseline(BaseModel):
             cur_x = cur_x.view(batch_size, -1)
             cur_x = f.relu(self.fc1(cur_x))
             cur_x = f.relu(self.fc2(cur_x))
-            
+
             cur_x = cur_x.unsqueeze(1)
             output = torch.cat((output, cur_x), 1)
 

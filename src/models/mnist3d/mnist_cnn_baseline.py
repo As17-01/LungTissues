@@ -1,8 +1,8 @@
 import torch
 import torch.nn.functional as f
-from src.utils import get_default_device
 
 from src.models.base import BaseModel
+from src.utils import get_default_device
 
 
 class MNIST3dCNNBaseline(BaseModel):
@@ -26,5 +26,5 @@ class MNIST3dCNNBaseline(BaseModel):
             cur_x = f.sigmoid(self.fc3(cur_x))
 
             cur_x = cur_x.unsqueeze(1)
-            output = torch.cat((output, cur_x ), 1)
+            output = torch.cat((output, cur_x), 1)
         return torch.mean(output, 1)

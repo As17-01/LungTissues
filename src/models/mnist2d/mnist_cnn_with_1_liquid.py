@@ -2,9 +2,8 @@ import torch
 import torch.nn.functional as f
 from ncps.torch import LTC
 
-from src.utils import get_default_device
-
 from src.models.base import BaseModel
+from src.utils import get_default_device
 
 
 class MNIST2dCNNWith1Liquid(BaseModel):
