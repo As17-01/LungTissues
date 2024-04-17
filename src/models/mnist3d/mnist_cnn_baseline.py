@@ -20,7 +20,7 @@ class MNIST3dCNNBaseline(BaseModel):
         for i in range(time_steps):
             cur_x = f.max_pool2d(f.relu(self.conv1(x[:, i, :, :, :])), (2, 2))
             cur_x = f.max_pool2d(f.relu(self.conv2(cur_x)), (2, 2))
-            cur_x = cur_x.view(x.shape[0], -1)
+            cur_x = cur_x.view(batch_size, -1)
             cur_x = f.relu(self.fc1(cur_x))
             cur_x = f.relu(self.fc2(cur_x))
             cur_x = f.sigmoid(self.fc3(cur_x))

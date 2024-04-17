@@ -18,7 +18,7 @@ class BaseModel(torch.nn.Module):
         #     labels = labels.unsqueeze(1).to(torch.float32)
         #     images = images.view(-1, *images.shape[-3:])
         # else:
-        
+
         labels = labels.to(torch.float32)
         out = self(images)  # Generate predictions
 
