@@ -51,10 +51,10 @@ class BaseModel(torch.nn.Module):
 
         return {"val_loss": epoch_loss.item(), "val_acc": epoch_acc.item(), "val_roc_auc": roc_auc.item()}
 
-    def epoch_end(self, epoch, result):
+    def epoch_end(self, epoch, result, suffix: str = "val"):
         s = []
         s.append(f"Epoch [{epoch}]")
-        s.append(f"val_loss: {result['val_loss']:.4f}")
-        s.append(f"val_acc: {result['val_acc']:.4f}")
-        s.append(f"val_roc_auc: {result['val_roc_auc']:.4f}")
+        s.append(f"val_loss: {result[suffix + '_loss']:.4f}")
+        s.append(f"val_acc: {result[suffix + '_acc']:.4f}")
+        s.append(f"val_roc_auc: {result[suffix + '_roc_auc']:.4f}")
         logger.info(" ".join(s))

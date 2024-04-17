@@ -56,7 +56,7 @@ def main(cfg: DictConfig) -> None:
     with torch.no_grad():
         model.eval()
         logger.info("Test Metrics:")
-        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, expand=True))
+        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, expand=True), "test")
 
 
 if __name__ == "__main__":
