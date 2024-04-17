@@ -38,4 +38,4 @@ class CNNBaseline(BaseModel):
             output = torch.cat((output, cur_x), 1)
 
         output = torch.mean(output, 1)
-        return torch.squeeze(output)
+        return torch.squeeze(output, 1)
