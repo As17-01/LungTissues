@@ -12,7 +12,7 @@ class MNISTLSTMBaseline(BaseModel):
         self.fc1 = torch.nn.Linear(40, 1)
 
     def forward(self, x):
-        # It resets hidden state
+        # It resets hidden state. It is usless until we deal with series data.
         hidden = (
             torch.autograd.Variable(torch.zeros(2, 40, device=get_default_device())),
             torch.autograd.Variable(torch.zeros(2, 40, device=get_default_device())),
