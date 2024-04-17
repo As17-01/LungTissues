@@ -49,13 +49,13 @@ def main(cfg: DictConfig) -> None:
 
     with torch.no_grad():
         model.eval()
-        history = [src.utils.evaluate(model, valid_dataloader, expand=True)]
+        history = [src.utils.evaluate(model, valid_dataloader, expand=False)]
 
-    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, expand=True)
+    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, expand=False)
 
     with torch.no_grad():
         model.eval()
-        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, expand=True), "test")
+        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, expand=False), "test")
 
 
 if __name__ == "__main__":

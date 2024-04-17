@@ -7,7 +7,7 @@ from src.models.base import BaseModel
 class MNISTCNNBaseline(BaseModel):
     def __init__(self):
         super(MNISTCNNBaseline, self).__init__()
-        self.conv1 = torch.nn.Conv2d(1, 6, 5)
+        self.conv1 = torch.nn.Conv2d(3, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.fc1 = torch.nn.Linear(16 * 5 * 5, 120)
         self.fc2 = torch.nn.Linear(120, 84)
