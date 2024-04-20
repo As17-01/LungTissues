@@ -1,0 +1,2 @@
+load_dir: "../../../data/intermediate"
+saved_model_path: "../train/saved_models/20240418-150315/epoch1.pt"
