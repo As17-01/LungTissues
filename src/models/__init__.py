@@ -1,4 +1,5 @@
-from src.models.cnn_baseline import CNNBaseline
+from src.models.lungtissues.cnn_baseline import CNNBaseline
+from src.models.lungtissues.cnn_small import CNNSmall
 from src.models.mnist2d.mnist_cnn_baseline import MNIST2dCNNBaseline
 from src.models.mnist2d.mnist_cnn_baseline_exp0 import MNIST2dCNNBaselineExp0
 from src.models.mnist2d.mnist_cnn_with_1_liquid import MNIST2dCNNWith1Liquid
