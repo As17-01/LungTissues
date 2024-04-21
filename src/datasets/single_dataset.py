@@ -24,6 +24,9 @@ class SingleDataset(Dataset):
         self.transform = transform
         self.target_transform = target_transform
 
+    def get_all_labels(self):
+        return self.all_labels
+
     def __len__(self):
         return len(self.all_labels)
 

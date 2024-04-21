@@ -47,6 +47,15 @@ def evaluate(model, val_loader, time_dimension=None):
     return model.validation_epoch_end(outputs)
 
 
+def predict(model, test_loader, time_dimension=None):
+    """Make predictions with the model."""
+    outputs = []
+    for _, batch in enumerate(test_loader):
+        # TODO: check instances
+        outputs.append(model.prediction_step(batch, time_dimension=time_dimension))
+    return torch.cat(outputs, dim=0)
+
+
 class EarlyStopper:
     def __init__(self, patience=1, min_delta=0):
         self.patience = patience

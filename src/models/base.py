@@ -44,6 +44,15 @@ class BaseModel(torch.nn.Module):
         acc = accuracy(out, labels)  # Calculate accuracy
         return {"val_loss": loss, "val_acc": acc, "preds": out, "labels": labels}
 
+    def prediction_step(self, batch, time_dimension=None):
+        images, _ = batch
+        if time_dimension is not None:
+            images = torch.swapaxes(images, time_dimension, 2)
+        images = images.to(torch.float32)
+
+        out = self(images)  # Generate predictions
+        return out
+
     def validation_epoch_end(self, outputs):
         batch_losses = [x["val_loss"] for x in outputs]
         epoch_loss = torch.stack(batch_losses).mean()  # Combine losses
