@@ -31,14 +31,19 @@ def measure_metrics(result: pd.DataFrame):
     metrics = {}
     result = result.copy()
 
+    non_agg_accuracy = accuracy_score(result["target"], np.where(result["preds"] > 0.5, 1, 0))
+    non_agg_roc_auc = roc_auc_score(result["target"], result["preds"])
+
     result["slide"] = result["large_image"].str.rsplit("/").str[-2]
     result = result.groupby("slide")[["preds", "target"]].mean()
 
-    accuracy = accuracy_score(result["target"], np.where(result["preds"] > 0.5, 1, 0))
-    roc_auc = roc_auc_score(result["target"], result["preds"])
+    agg_accuracy = accuracy_score(result["target"], np.where(result["preds"] > 0.5, 1, 0))
+    agg_roc_auc = roc_auc_score(result["target"], result["preds"])
 
-    metrics["accuracy"] = accuracy
-    metrics["roc_auc"] = roc_auc
+    metrics["non_agg_accuracy"] = non_agg_accuracy
+    metrics["non_agg_roc_auc"] = non_agg_roc_auc
+    metrics["agg_accuracy"] = agg_accuracy
+    metrics["agg_roc_auc"] = agg_roc_auc
 
     return metrics
 
