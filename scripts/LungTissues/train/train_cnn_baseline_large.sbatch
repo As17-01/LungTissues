@@ -10,4 +10,4 @@
 module load Python
 source activate lung_tissues_venv
 
-poetry run python main.py dataset=single_dataset model=cnn_baseline_large
+poetry run python main.py dataset=single_dataset model=cnn_baseline_large training_params=large
