@@ -5,9 +5,9 @@ from src.models.base import BaseModel
 from src.utils import get_default_device
 
 
-class CNNBaseline(BaseModel):
+class CNNBaselineDropout(BaseModel):
     def __init__(self):
-        super(CNNBaseline, self).__init__()
+        super(CNNBaselineDropout, self).__init__()
         self.conv1 = torch.nn.Conv2d(3, 32, 3, 1, 1)
         self.conv2 = torch.nn.Conv2d(32, 64, 3, 1, 1)
         self.conv3 = torch.nn.Conv2d(64, 128, 3, 1, 1)
@@ -15,8 +15,11 @@ class CNNBaseline(BaseModel):
         self.conv5 = torch.nn.Conv2d(256, 256, 3, 1, 1)
         self.conv6 = torch.nn.Conv2d(256, 256, 3, 1, 1)
         self.fc1 = torch.nn.Linear(256 * 4 * 4, 1024)
+        self.dropout1 = torch.nn.Dropout(0.2)
         self.fc2 = torch.nn.Linear(1024, 512)
+        self.dropout2 = torch.nn.Dropout(0.2)
         self.fc3 = torch.nn.Linear(512, 256)
+        self.dropout3 = torch.nn.Dropout(0.2)
         self.fc4 = torch.nn.Linear(256, 1)
 
     def forward(self, x):
@@ -32,8 +35,11 @@ class CNNBaseline(BaseModel):
 
             cur_x = cur_x.view(batch_size, -1)
             cur_x = f.relu(self.fc1(cur_x))
+            cur_x = self.dropout1(cur_x)
             cur_x = f.relu(self.fc2(cur_x))
+            cur_x = self.dropout2(cur_x)
             cur_x = f.relu(self.fc3(cur_x))
+            cur_x = self.dropout3(cur_x)
             cur_x = self.fc4(cur_x)
 
             cur_x = cur_x.unsqueeze(1)

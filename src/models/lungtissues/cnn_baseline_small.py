@@ -5,9 +5,9 @@ from src.models.base import BaseModel
 from src.utils import get_default_device
 
 
-class CNNSmall(BaseModel):
+class CNNBaselineSmall(BaseModel):
     def __init__(self):
-        super(CNNSmall, self).__init__()
+        super(CNNBaselineSmall, self).__init__()
         self.conv1 = torch.nn.Conv2d(3, 6, 5)
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.fc1 = torch.nn.Linear(16 * 72 * 72, 120)
@@ -24,10 +24,10 @@ class CNNSmall(BaseModel):
             cur_x = cur_x.view(batch_size, -1)
             cur_x = f.relu(self.fc1(cur_x))
             cur_x = f.relu(self.fc2(cur_x))
-            cur_x = f.sigmoid(self.fc3(cur_x))
+            cur_x = self.fc3(cur_x)
 
             cur_x = cur_x.unsqueeze(1)
             output = torch.cat((output, cur_x), 1)
 
-        output = torch.mean(output, 1)
+        output = f.sigmoid(torch.mean(output, 1))
         return torch.squeeze(output, 1)
