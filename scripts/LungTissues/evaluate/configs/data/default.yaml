@@ -1,2 +1,2 @@
 load_dir: "../../../data/intermediate"
-saved_model_path: "../train/saved_models/20240420-011501/epoch13.pt"
+saved_model_path: "../train/saved_models/20240508-011804/epoch1.pt"
