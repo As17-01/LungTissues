@@ -35,7 +35,12 @@ def measure_metrics(result: pd.DataFrame):
     non_agg_roc_auc = roc_auc_score(result["target"], result["preds"])
 
     result["slide"] = result["large_image"].str.rsplit("/").str[-2]
+
+    # Inverse sigmoid
+    result["preds"] = - np.log((1 / result["preds"]) - 1)
     result = result.groupby("slide")[["preds", "target"]].mean()
+    # Apply sigmoid back
+    result["preds"] = 1 / (1 + np.exp(-result["preds"]))
 
     agg_accuracy = accuracy_score(result["target"], np.where(result["preds"] > 0.5, 1, 0))
     agg_roc_auc = roc_auc_score(result["target"], result["preds"])
