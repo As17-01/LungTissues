@@ -1,1 +1,1 @@
-_target_: src.models.CNNBaselineDropout
+_target_: src.models.CNNBaseline
