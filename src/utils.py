@@ -79,6 +79,7 @@ def fit(epochs, lr, model, train_loader, val_loader, time_dimension=None, opt_fu
     current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     save_dir = pathlib.Path(f"./saved_models/{current_time}")
     save_dir.mkdir(exist_ok=True, parents=True)
+    logger.info(f"Saving to {save_dir}")
 
     history = []
     optimizer = opt_func(model.parameters(), lr)

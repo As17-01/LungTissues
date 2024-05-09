@@ -37,7 +37,7 @@ def measure_metrics(result: pd.DataFrame):
     result["slide"] = result["large_image"].str.rsplit("/").str[-2]
 
     # Inverse sigmoid
-    result["preds"] = - np.log((1 / result["preds"]) - 1)
+    result["preds"] = -np.log((1 / result["preds"]) - 1)
     result = result.groupby("slide")[["preds", "target"]].mean()
     # Apply sigmoid back
     result["preds"] = 1 / (1 + np.exp(-result["preds"]))

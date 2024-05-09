@@ -2,6 +2,7 @@ from src.models.lungtissues.cnn_baseline import CNNBaseline
 from src.models.lungtissues.cnn_baseline_dropout import CNNBaselineDropout
 from src.models.lungtissues.cnn_baseline_large import CNNBaselineLarge
 from src.models.lungtissues.cnn_baseline_small import CNNBaselineSmall
+from src.models.lungtissues.cnn_baseline_very_small import CNNBaselineVerySmall
 from src.models.mnist2d.mnist_cnn_baseline import MNIST2dCNNBaseline
 from src.models.mnist2d.mnist_cnn_baseline_exp0 import MNIST2dCNNBaselineExp0
 from src.models.mnist2d.mnist_cnn_with_1_liquid import MNIST2dCNNWith1Liquid
