@@ -56,8 +56,10 @@ class YandexDiskDownloader:
                 self._download_file(path=file["path"], save_dir=self.download_location / "images")
 
         logger.info(f"Loading metadata")
-        self._download_file(path="/biospecimen.cart.2024-01-18.json", save_dir=self.download_location, unpack=False)
-        self._download_file(path="/metadata.cart.2024-01-18.json", save_dir=self.download_location, unpack=False)
+        self._download_file(path="/biospecimen.cart.LUAD.json", save_dir=self.download_location, unpack=False)
+        self._download_file(path="/biospecimen.cart.LUSC.json", save_dir=self.download_location, unpack=False)
+        self._download_file(path="/metadata.cart.LUAD.json", save_dir=self.download_location, unpack=False)
+        self._download_file(path="/metadata.cart.LUSC.json", save_dir=self.download_location, unpack=False)
 
         logger.info("Download complete.")
 
