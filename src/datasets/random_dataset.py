@@ -44,7 +44,7 @@ class RandomDataset(Dataset):
         patches = patches.contiguous().view(3, self.max_sequence_len, kernel_size, kernel_size)
         patches = patches.swapaxes(0, 1)
 
-        idx_to_keep = np.array([0])
+        idx_to_keep = np.random.choice(range(len(patches)), size=int(len(patches) * self.keep_share), replace=False)
         patches = patches[idx_to_keep]
 
         label = self.slide_labels.iloc[idx, 1].astype("int")
