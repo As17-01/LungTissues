@@ -1,6 +1,7 @@
 import torch
 import torch.nn.functional as f
 from ncps.torch import LTC
+from ncps.wirings import AutoNCP
 
 from src.models.base import BaseModel
 from src.utils import get_default_device
@@ -13,7 +14,7 @@ class MNIST3dLiquidBaseline(BaseModel):
         self.conv2 = torch.nn.Conv2d(6, 16, 3)
         self.fc1 = torch.nn.Linear(16 * 5 * 5, 120)
         self.fc2 = torch.nn.Linear(120, 84)
-        self.rnn3 = LTC(84, 1)
+        self.rnn3 = LTC(84, AutoNCP(40, 1))
 
     def forward(self, x):
         batch_size, time_steps, C, H, W = x.size()
@@ -28,5 +29,5 @@ class MNIST3dLiquidBaseline(BaseModel):
             cur_x = cur_x.unsqueeze(1)
             output = torch.cat((output, cur_x), 1)
 
-        output = f.sigmoid(self.rnn3(output)[0])
-        return torch.mean(output, 1)
+        output = self.rnn3(output)[0]
+        return f.sigmoid(torch.mean(output, 1))
