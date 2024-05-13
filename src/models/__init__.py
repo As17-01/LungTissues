@@ -13,4 +13,4 @@ from src.models.mnist2d.mnist_lstm_baseline import MNIST2dLSTMBaseline
 from src.models.mnist3d.mnist_cnn_baseline import MNIST3dCNNBaseline
 from src.models.mnist3d.mnist_full_liquid_baseline import MNIST3dFullLiquidBaseline
 from src.models.mnist3d.mnist_liquid_baseline import MNIST3dLiquidBaseline
-from src.models.mnist3d.mnist_full_liquid_conf import MNIST3dFullLiquidConf0, MNIST3dFullLiquidConf1, MNIST3dFullLiquidConf2, MNIST3dFullLiquidConf3
+from src.models.mnist3d.mnist_full_liquid_conf import MNIST3dFullLiquidConf0, MNIST3dFullLiquidConf1, MNIST3dFullLiquidConf2, MNIST3dFullLiquidConf3, MNIST3dFullLiquidConf4
