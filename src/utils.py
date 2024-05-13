@@ -39,10 +39,6 @@ def evaluate(model, val_loader, time_dimension=None):
     """Evaluate the model's performance."""
     outputs = []
     for i, batch in enumerate(val_loader):
-        # if i % 1000 == 0:
-        #     logger.info(f"{i} / {len(val_loader)}")
-
-        # TODO: check instances
         outputs.append(model.validation_step(batch, time_dimension=time_dimension))
     return model.validation_epoch_end(outputs)
 
@@ -51,7 +47,6 @@ def predict(model, test_loader, time_dimension=None):
     """Make predictions with the model."""
     outputs = []
     for _, batch in enumerate(test_loader):
-        # TODO: check instances
         outputs.append(model.prediction_step(batch, time_dimension=time_dimension))
     return torch.cat(outputs, dim=0)
 
@@ -85,19 +80,13 @@ def fit(epochs, lr, model, train_loader, val_loader, time_dimension=None, opt_fu
     optimizer = opt_func(model.parameters(), lr)
     early_stopper = EarlyStopper(patience=5, min_delta=0.001)
     for epoch in range(epochs):
-        # logger.info("Training Phase...")
         model.train()
         for i, batch in enumerate(train_loader):
-            # if i % 1000 == 0:
-            #     logger.info(f"{i} / {len(train_loader)}")
-
-            # TODO: check instances
             loss = model.training_step(batch, time_dimension=time_dimension)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
 
-        # logger.info("Validation phase...")
         with torch.no_grad():
             model.eval()
             result = evaluate(model, val_loader, time_dimension=time_dimension)
