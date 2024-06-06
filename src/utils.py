@@ -69,14 +69,16 @@ class EarlyStopper:
         return False
 
 
-def fit(epochs, lr, model, train_loader, val_loader, time_dimension=None, opt_func=torch.optim.Adam):
+def fit(epochs, lr, model, train_loader, val_loader, test_loader=None, time_dimension=None, opt_func=torch.optim.Adam):
     """Train the model using gradient descent."""
     current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     save_dir = pathlib.Path(f"./saved_models/{current_time}")
     save_dir.mkdir(exist_ok=True, parents=True)
     logger.info(f"Saving to {save_dir}")
 
-    history = []
+    history_val = []
+    history_test = []
+
     optimizer = opt_func(model.parameters(), lr)
     early_stopper = EarlyStopper(patience=5, min_delta=0.001)
     for epoch in range(epochs):
@@ -89,15 +91,23 @@ def fit(epochs, lr, model, train_loader, val_loader, time_dimension=None, opt_fu
 
         with torch.no_grad():
             model.eval()
-            result = evaluate(model, val_loader, time_dimension=time_dimension)
-            model.epoch_end(epoch, result)
-            history.append(result)
+            result_val = evaluate(model, val_loader, time_dimension=time_dimension)
+            model.epoch_end(epoch, result_val)
+            history_val.append(result_val)
+            with open(save_dir / f"epoch{epoch}_val.json", "w") as file:
+                json.dump(history_val[-1], file)
+
+            if test_loader is not None:
+                result_test = evaluate(model, test_loader, time_dimension=time_dimension)
+                history_test.append(result_test)
+                
+                with open(save_dir / f"epoch{epoch}_test.json", "w") as file:
+                    json.dump(history_test[-1], file)
 
         torch.save(model.state_dict(), save_dir / f"epoch{epoch}.pt")
-        with open(save_dir / f"epoch{epoch}.json", "w") as file:
-            json.dump(history[-1], file)
 
-        if early_stopper.early_stop(result["val_loss"]):
+        if early_stopper.early_stop(result_val["val_loss"]):
             logger.info(f"Early stop at epoch {epoch}!")
             break
-    return history
+
+    return history_val

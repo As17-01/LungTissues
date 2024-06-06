@@ -16,7 +16,8 @@ import src.models
 import src.utils
 
 
-@hydra.main(config_path="configs", config_name="config", version_base="1.2")
+# Change config_path to switch between experiment setup and train setup
+@hydra.main(config_path="experiment_configs", config_name="config", version_base="1.2")
 def main(cfg: DictConfig) -> None:
     device = src.utils.get_default_device()
     logger.info(f"Current device is {device}")
@@ -50,7 +51,7 @@ def main(cfg: DictConfig) -> None:
         model.eval()
         history = [src.utils.evaluate(model, valid_dataloader, time_dimension=1)]
 
-    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, time_dimension=1)
+    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, test_dataloader, time_dimension=1)
 
     with torch.no_grad():
         model.eval()
