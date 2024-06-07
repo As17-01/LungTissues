@@ -26,7 +26,7 @@ The datasets come from the public MedMnist library. It contains a broad 2D and 3
 
 For the training I used two different templates for convolutional models. The first template used only linear and convolutional layers in their architecture and later the models are called "convolutional". In the second template I also used liquid layers in the models with different kinds of wirings, the number of neurons, the number of layers.
 
-I train each model with batch size of 64 images using torch.optim.Adam for 500 epochs. The learning rate is set to 0.0005 for NoduleMNIST3D and VesselMNIST3D datasets, and it is set to 0.001 for AdrenalMNIST3D dataset. To avoid overfitting there is an early stopping of the training process - if the validation loss was larger by 0.001 for 10 epochs than the best validation loss. For the loss function I used binary cross entropy, while also reporting accuracy and ROC AUC metric.
+I train each model with batch size of 64 images using torch.optim.Adam for 500 epochs. The learning rate is set to 0.0005 for all datasets. To avoid overfitting there is an early stopping of the training process - if the validation loss was larger by 0.001 for 10 epochs than the best validation loss. For the loss function I used binary cross entropy, while also reporting accuracy and ROC AUC metric.
 
 ### Results
 
