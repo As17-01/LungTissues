@@ -40,7 +40,7 @@ The first experiment tested the models with a basic CNN architecture and Liquid 
 
 Liquid neural networks for this experiment outperformed normal convolutional networks, however, they took significantly more time to train, despite having the smaller number of trainable parameters.
 
-![Alt text](exp1_nodule.png "Experiment 1. NoduleMNIST3D")
+![Alt text](assets/exp1_nodule.png "Experiment 1. NoduleMNIST3D")
 
 
 ## Conclusion
