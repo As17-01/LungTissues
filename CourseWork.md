@@ -1,4 +1,4 @@
-# Lung Tissues Classification
+# Application of Liquid Neural Networks to 3D images classification on the example of MedMNIST datasets 
 
 ## Introduction
 
