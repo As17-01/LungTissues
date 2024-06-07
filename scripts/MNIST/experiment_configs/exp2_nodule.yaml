@@ -14,5 +14,3 @@ model:
   - _target_: src.models.MNIST3dCNNExp2N4
   - _target_: src.models.MNIST3dLiqExp2N5
   - _target_: src.models.MNIST3dLiqExp2N6
-  
-
