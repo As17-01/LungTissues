@@ -1,10 +1,10 @@
 exp_name: "exp1"
 
 training_params:
-  num_epochs: 5
+  num_epochs: 500
   batch_size: 64
   learning_rate: 0.001
-  num_workers: 4
+  num_workers: 8
 
 model:
   - _target_: src.models.MNIST3dCNNExp1N1
