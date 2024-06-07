@@ -86,7 +86,7 @@ def fit(epochs, lr, model, train_loader, val_loader, test_loader=None, time_dime
     history_test = []
 
     optimizer = opt_func(model.parameters(), lr)
-    early_stopper = EarlyStopper(patience=5, min_delta=0.001)
+    early_stopper = EarlyStopper(patience=10, min_delta=0.001)
     for epoch in range(epochs):
         model.train()
         for i, batch in enumerate(train_loader):
