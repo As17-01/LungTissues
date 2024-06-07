@@ -14,18 +14,12 @@ The research question of this paper is to find which configurations of Liquid Ne
 
 The datasets come from the public MedMnist library. It contains a broad 2D and 3D images collection for a classification problem. For the experiments a choose three different datasets for binary classification. Each of them have thousands of images of a similar scale.
 
-### AdrenalMNIST3D
+**AdrenalMNIST3D.** This dataset is obtained from Zhongshan Hospital data and contains shape masks of 1584 adrenal glands. They are split into 1188 samples for training, 98 for validation and 298 for testing. The shapes are 3D (28x28x28) and used for binary classification.
 
-This dataset is obtained from Zhongshan Hospital data and contains shape masks of 1584 adrenal glands. They are split into 1188 samples for training, 98 for validation and 298 for testing. The shapes are 3D (28x28x28) and used for binary classification.
-
-### NoduleMNIST3D 
-
-This dataset contains thoracic CT scans. They are split into 1158 samples for training, 165 for validation and 310 for testing. The images are 3D (28x28x28) and used for binary classification.
+**NoduleMNIST3D.** This dataset contains thoracic CT scans. They are split into 1158 samples for training, 165 for validation and 310 for testing. The images are 3D (28x28x28) and used for binary classification.
 size of 28×28×28 for analysis.
 
-### VesselMNIST3D
-
-This is a 3D intracranial aneurysm dataset, which contains 103 3D models of entire brain vessels collected by reconstructing MRA images. The total number of 1,694 healthy vessel segments and 215 aneurysm segments are created automatically by the complete models. The images are 3D (28x28x28) and used for binary classification. They are split into 1335 samples for training, 191 for validation and 382 for testing.
+**VesselMNIST3D.** This is a 3D intracranial aneurysm dataset, which contains 103 3D models of entire brain vessels collected by reconstructing MRA images. The total number of 1,694 healthy vessel segments and 215 aneurysm segments are created automatically by the complete models. The images are 3D (28x28x28) and used for binary classification. They are split into 1335 samples for training, 191 for validation and 382 for testing.
 
 ## Models
 
