@@ -1,13 +1,17 @@
+exp_name: "exp1"
+
 training_params:
   num_epochs: 5
   batch_size: 64
   learning_rate: 0.001
   num_workers: 4
 
-models:
-  - _target_: src.models.MNIST3dModelBuilder
-  - _target_: src.models.MNIST3dModelBuilder
-  - _target_: src.models.MNIST3dModelBuilder
-  - _target_: src.models.MNIST3dModelBuilder
-  - _target_: src.models.MNIST3dModelBuilder
-  - _target_: src.models.MNIST3dModelBuilder
+model:
+  - _target_: src.models.MNIST3dCNNExp1N1
+  - _target_: src.models.MNIST3dLiqExp1N2
+  - _target_: src.models.MNIST3dCNNExp1N3
+  - _target_: src.models.MNIST3dCNNExp1N4
+  - _target_: src.models.MNIST3dLiqExp1N5
+  - _target_: src.models.MNIST3dLiqExp1N6
+  
+

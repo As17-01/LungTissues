@@ -16,7 +16,6 @@ import src.models
 import src.utils
 
 
-# Change config_path to switch between experiment setup and train setup
 @hydra.main(config_path="experiment_configs", config_name="config", version_base="1.2")
 def main(cfg: DictConfig) -> None:
     device = src.utils.get_default_device()
@@ -44,18 +43,19 @@ def main(cfg: DictConfig) -> None:
     valid_dataloader = src.utils.DeviceDataLoader(valid_dataloader, device)
     test_dataloader = src.utils.DeviceDataLoader(test_dataloader, device)
 
-    model = registry.get_from_params(**cfg_dct["model"])
-    src.utils.to_device(model, device)
+    model_list = [registry.get_from_params(**model) for model in cfg_dct["model"]]
+    for i, model in enumerate(model_list):
+        src.utils.to_device(model, device)
 
-    with torch.no_grad():
-        model.eval()
-        history = [src.utils.evaluate(model, valid_dataloader, time_dimension=1)]
+        with torch.no_grad():
+            model.eval()
+            history = [src.utils.evaluate(model, valid_dataloader, time_dimension=1)]
 
-    history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, test_dataloader, time_dimension=1)
+        history += src.utils.fit(num_epochs, lr, model, train_dataloader, valid_dataloader, test_dataloader, time_dimension=1, exp_name=cfg_dct["exp_name"], model_id=i)
 
-    with torch.no_grad():
-        model.eval()
-        model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, time_dimension=1), "test")
+        with torch.no_grad():
+            model.eval()
+            model.epoch_end(num_epochs, src.utils.evaluate(model, test_dataloader, time_dimension=1), "test")
 
 
 if __name__ == "__main__":

@@ -69,10 +69,16 @@ class EarlyStopper:
         return False
 
 
-def fit(epochs, lr, model, train_loader, val_loader, test_loader=None, time_dimension=None, opt_func=torch.optim.Adam):
+def fit(epochs, lr, model, train_loader, val_loader, test_loader=None, time_dimension=None, opt_func=torch.optim.Adam, exp_name=None, model_id=None):
     """Train the model using gradient descent."""
-    current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    save_dir = pathlib.Path(f"./saved_models/{current_time}")
+
+    if exp_name is None:
+        folder_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    else:
+        folder_name = exp_name
+    save_dir = pathlib.Path(f"./saved_models/{folder_name}")
+    if model_id is not None:
+        save_dir = save_dir / str(model_id)
     save_dir.mkdir(exist_ok=True, parents=True)
     logger.info(f"Saving to {save_dir}")
 
