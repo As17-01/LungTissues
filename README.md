@@ -16,11 +16,11 @@ Data could be downloaded from `https://disk.yandex.com/d/yEbNmJRmKvaXiA` (not gu
 
 Or the slides in the required format can be directly downloaded from `https://portal.gdc.cancer.gov/cart`. I downloaded 424 slides from there. They were chosen randomly from all slides of the same category. Example:
 
-![Alt text](download_data_example.jpg?raw=true "Download Data Example")
+![Alt text](assets/download_data_example.jpg?raw=true "Download Data Example")
 
 The resulting structure of the `./data` folder should be the following. Note that each image file should be placed inside `file_name/file_name` folder for consistency with the Yandex Drive downloading data method. TODO: Rework downloading data script:
 
-![Alt text](data_structure_example.png?raw=true "Data Structure Example")
+![Alt text](assets/data_structure_example.png?raw=true "Data Structure Example")
 
 ## Installation
 
