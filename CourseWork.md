@@ -38,6 +38,8 @@ The first experiment tested the models with a basic CNN architecture and Liquid 
 
 **MNIST3dLiqExp1N6** - the convolutional layers are followed by one liquid layer with 30 neurons. ACC: 0.852; ROC AUC: 0.904; Num parameters: 53528.
 
+Liquid neural networks for this experiment outperformed normal convolutional networks, however, they took significantly more time to train, despite having the smaller number of trainable parameters.
+
 ![Alt text](exp1_nodule.png "Experiment 1. NoduleMNIST3D")
 
 
