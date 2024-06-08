@@ -1,0 +1,16 @@
+exp_name: "exp3_nodule"
+dataset: "NoduleMNIST3D"
+
+training_params:
+  num_epochs: 500
+  batch_size: 64
+  learning_rate: 0.0005
+  num_workers: 8
+
+model:
+  - _target_: src.models.MNIST3dCNNExp3N1
+  - _target_: src.models.MNIST3dLiqExp3N2
+  - _target_: src.models.MNIST3dLiqExp3N3
+  - _target_: src.models.MNIST3dLiqExp3N4
+  - _target_: src.models.MNIST3dLiqExp3N5
+  - _target_: src.models.MNIST3dCNNExp3N6
