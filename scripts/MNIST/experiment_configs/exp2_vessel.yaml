@@ -1,0 +1,16 @@
+exp_name: "exp2_vessel"
+dataset: "VesselMNIST3D"
+
+training_params:
+  num_epochs: 500
+  batch_size: 64
+  learning_rate: 0.0005
+  num_workers: 8
+
+model:
+  - _target_: src.models.MNIST3dCNNExp2N1
+  - _target_: src.models.MNIST3dLiqExp2N2
+  - _target_: src.models.MNIST3dCNNExp2N3
+  - _target_: src.models.MNIST3dCNNExp2N4
+  - _target_: src.models.MNIST3dLiqExp2N5
+  - _target_: src.models.MNIST3dLiqExp2N6
