@@ -10,6 +10,8 @@ For the analysis I used standartized MedMNIST datasets to conduct the experiment
 
 The research question of this paper is to find which configurations of Liquid Neural Network architectures provide with the best results on the data. It will be compared to the current popular approaches, which are mostly convolutional neural networks. In comparison to them, the model is not only capturing the current snapshot of the data and averages the result, but includes the dynamics of the images for predictions.
 
+This study contributes to the current literature about liquid networks, classification of medical images and processing sequential data. 
+
 ## Datasets
 
 The datasets come from the public MedMnist library. It contains a broad 2D and 3D images collection for a classification problem. For the experiments a choose three different datasets for binary classification. Each of them have thousands of images of a similar scale.
@@ -46,3 +48,11 @@ Liquid neural networks for this experiment outperformed normal convolutional net
 ## Conclusion
 
 TODO
+
+## References
+
+1. **Hasani, R., Lechner, M., Amini, A., Rus, D., & Grosu, R.** (2021). Liquid Time-constant Networks. Proceedings of the AAAI Conference on Artificial Intelligence, 35(9), 7657-7666. https://doi.org/10.1609/aaai.v35i9.16936
+
+2. **Lai, Z., Wu, J., Chen, S., Zhou, Y., & Hovakimyan, N.** (2024). Language Models are Free Boosters for Biomedical Imaging Tasks. arXiv (Cornell University). https://doi.org/10.48550/arxiv.2403.17343
+
+3. **Yang, J., Shi, R., & Ni, B.** (2021). MedMNIST Classification Decathlon: A Lightweight AutoML Benchmark for Medical Image Analysis. In 2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI) (pp. 191-195). Nice, France. doi: 10.1109/ISBI48211.2021.9434062
