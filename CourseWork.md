@@ -6,7 +6,9 @@ The modern healthcare sector utilizes various technologies to improve patient ou
 
 In recent years, the field has experienced rapid advancements in deep learning technologies. Besides other popular approaches that have emerged, the application of Liquid Time-Constant Neural Networks stands out as a promising possibility to enhance the accuracy and efficiency of medical image analysis. First they were introduced by (Hasani and etc, 2021) and now they could serve as a replacement to traditional linear layers when analizing sequential data, and an alternative to other recurrent neural networks. Inspired by the dynamic behavior of liquid systems, LNNs are offering a unique framework that utilizes adaptive and self-organizing neural layers to make predictions. This course work shows the potential of Liquid Neural Networks as a new deep learning technique, with a specific focus on their application to the analysis of diverse medical data.
 
-For the analysis I used standartized MedMNIST datasets to conduct the experiments. The utilization of the MedMNIST datasets serves as a initial step, providing with a great source of medical image data for training and validating neural network models. MedMNIST collection of images contain 6 different 3D image sets to train a model on, such as AdrenalMNIST3D and VesselMNIST3D and etc. The images already have been preprocessed, and they are ready to be used.  The sizes of the datasets are relatively small and it is possible to perform the analysis without the need for significant computational resources. Another advantage of the datasets is that they are widely used, and there are some solid benchmarks to compare the results with. Overall, the datasets allow to conduct fast experiments on the data to compare the quality of different architectures. The research question of this paper is to find which configurations of Liquid Neural Network architectures provide with the best results on the data, and compare them to the other methods and configurations. Then it will be compared to the current popular approaches, which are mostly convolutional neural networks. This study contributes to the current literature about Liquid Time-constant networks, classification of medical images and processing time-series data. 
+For the analysis I used standartized MedMNIST datasets to conduct the experiments. The utilization of the MedMNIST datasets serves as a initial step, providing with a great source of medical image data for training and validating neural network models. MedMNIST collection of images contain 6 different 3D image sets to train a model on, such as AdrenalMNIST3D and VesselMNIST3D and etc. The images already have been preprocessed, and they are ready to be used.  The sizes of the datasets are relatively small and it is possible to perform the analysis without the need for significant computational resources. Another advantage of the datasets is that they are widely used, and there are some solid benchmarks to compare the results with. Overall, the datasets allow to conduct fast experiments on the data to compare the quality of different architectures.
+
+The research question of this paper is to find which configurations of Liquid Neural Network architectures provide with the best results on the data, and compare them to the other methods and configurations. Then it will be compared to the current popular approaches, which are mostly convolutional neural networks. This study contributes to the current literature about Liquid Time-constant networks, classification of medical images and processing time-series data. 
 
 ## Datasets
 
@@ -22,25 +24,29 @@ The datasets come from the public MedMnist library. It contains a broad 2D and 3
 
 ### Training setup
 
-I train each model with batch size of 64 images using torch.optim.Adam for 500 epochs. The learning rate is set to 0.0005 for all datasets. To avoid overfitting there is an early stopping of the training process - if the validation loss was larger by 0.001 for 10 epochs than the best validation loss. For the loss function I used binary cross entropy, while also reporting accuracy and ROC AUC metric.
+In this study, each model was trained using a batch size of 64 images. The training process was carried out using the Adam optimization algorithm. This process was repeated for 500 epochs. The learning rate was set at a constant 0.0005 across all datasets. To prevent overfitting and decrease the total learning time, an early stopping mechanism was implemented. If the validation loss has increased by more than 0.001 over the best previously recorded validation loss for 10 epochs, the training process was stopped. The model's performance was evaluated using the binary cross-entropy loss function, which is a popular method for binary classification problems. In addition, the accuracy of the model and ROC AUC were also reported.
 
 ### Results
 
-There was a total of 5 experiments with 6 different models each per dataset, which results in a total of 90 trained models. Most of them had similar first two convolutional layers with 6, 16 channels output and (5, 5), (3, 3) kernel sizes respectively. After each maximum 2d-pooling was used and RELU activation function. For experiment 4 two additional convolutional layers were added  with the same number of channels, but with no pooling in between.  
+I conducted five experiments. Each experiment used six different models for each dataset. This means that a total of 90 models were trained. Most of these models had a similar structure for their initial two convolutional layers. The first layer had an output of 6 channels, and the second layer had an output of 16 channels. The kernel sizes used for these layers were (5, 5) and (3, 3) respectively. Following each of these layers, a maximum 2D-pooling operation was performed to reduce the size of the output and control overfitting. After the pooling operation, a RELU activation function was applied. This function helps to introduce non-linearity into the model and improves the learning process. For the fourth experiment, the layers were slightly altered. Two additional convolutional layers were included, each with the same number of channels as the initial layers.
 
-First, the models included traditional convolutional neural networks, which predicted target individually for each timestamp and then they averaged the results. Next, there were models, which utilized Liquid Time-constant layers and they predicted on sequintal data. And finally, I trained a few LSTM and RNN models to compare the results with.
+Firstly, the study made use of traditional Convolutional Neural Networks. These models predicted targets individually for each timestamp. This means that they make predictions based on the data available at a specific point in time, without considering the sequence of data. After making individual predictions for each timestamp, the results are then averaged to provide a single output. Afterwards, the study also included models that utilized Liquid Time-constant layers. In contrast to the CNNs, these models are designed to predict on sequential data. They take into account the order of data points and make predictions based on the entire sequence of data rather than individual timestamps. Finally, the study involved training a few Long Short-Term Memory and Recurrent Neural Network models. These models were trained and their results compared with the CNN and LTC models to identify the most effective approach.
 
 #### Experiment 1.
 
-The first experiment tested the models with a basic CNN architecture and Liquid neural networks with AutoNCP wirings. The most promising models for NoduleMNIST3D dataset were:
+The first experiment tested the models with a basic CNN architecture and Liquid neural networks with AutoNCP wirings. The convolutional layers are followed by:
 
-**MNIST3dCNNExp1N1** - the convolutional layers are followed by three linear layers with RELU activation function of outputs (120, 84, 1). ACC: 0.838; ROC AUC: 0.887; Num parameters: 59405.
+**MNIST3dCNNExp1N1** - three linear layers with RELU activation function of outputs (120, 84, 1).
 
-**MNIST3dLiqExp1N5** - the convolutional layers are followed by two liquid layers with 21 and 7 neurons respectively, and RELU activation between them. ACC: 0.854; ROC AUC: 0.895; Num parameters: 37930.
+**MNIST3dLiqExp1N2** - one LTC layer with 21 neurons.
 
-**MNIST3dLiqExp1N6** - the convolutional layers are followed by one liquid layer with 30 neurons. ACC: 0.852; ROC AUC: 0.904; Num parameters: 53528.
+**MNIST3dCNNExp1N3** - the architecture coincides with MNIST3dCNNExp1N1 but with the different random state.
 
-Liquid neural networks for this experiment outperformed normal convolutional networks, however, they took significantly more time to train, despite having the smaller number of trainable parameters.
+**MNIST3dCNNExp1N4** - three linear layers with RELU activation function of outputs (60, 42, 1).
+
+**MNIST3dLiqExp1N5** - two liquid layers with 21 and 7 neurons respectively, and RELU activation between them.
+
+**MNIST3dLiqExp1N6** - one liquid layer with 30 neurons.
 
 #### Experiment 1. NoduleMNIST3D
 
@@ -50,30 +56,55 @@ Liquid neural networks for this experiment outperformed normal convolutional net
 
 ![Alt text](assets/exp1_adrenal.png "Experiment 1. AdrenalMNIST3D")
 
-
 #### Experiment 1. VesselMNIST3D
 
 ![Alt text](assets/exp1_vessel.png "Experiment 1. VesselMNIST3D")
 
+The performance of Liquid Neural Networks varied across the three datasets. For the AdrenalMNIST3D dataset, the LTC models didn't perform well. The traditional CNNs were much better in terms of results, and they also required less time to train.  However, the LTC performed better with the other two datasets. For the NoduleMNIST3D dataset, a Liquid Neural Network with a single Liquid layer of 30 neurons showed slightly improved results compared to its CNN counterparts. The rest of the models, however, performed similarly to the CNNs. The most significant improvement was seen with the VesselMNIST3D dataset. Here, the some Liquid Neural Networks greatly outperformed the traditional CNN models. In summary, for experiment 1 while the Liquid Neural Networks struggled with the AdrenalMNIST3D dataset, they showed comparable or even superior performance with the NoduleMNIST3D and VesselMNIST3D datasets.
 
+#### Experiment 2.
 
+The second experiment tested other configurations of CNN architecture and Liquid neural networks with Fully Connected wirings. The convolutional layers are followed by:
 
+**MNIST3dCNNExp2N1** - five linear layers with RELU activation function of outputs (128, 128, 64, 32, 1).
+
+**MNIST3dLiqExp2N2** - one LTC layer with 21 neurons and Fully Connected wiring.
+
+**MNIST3dCNNExp2N3** - three linear layers with RELU activation function of outputs (256, 64, 1).
+
+**MNIST3dCNNExp2N4** - three linear layers with RELU activation function of outputs (30, 21, 1).
+
+**MNIST3dLiqExp2N5** - two liquid layers with 21 and 7 neurons respectively, and RELU activation between them, and Fully Connected wirings.
+
+**MNIST3dLiqExp2N6** - one liquid layer with 30 neurons and Fully Connected wiring.
+
+The performance of LTC remained the same on Adrenal and Nodule datasets, however with Fully Connected they produced significantly worse results on a Vessel dataset.
+
+#### Experiment 2. NoduleMNIST3D
 
 ![Alt text](assets/exp2_nodule.png "Experiment 2. NoduleMNIST3D")
+
+#### Experiment 2. AdrenalMNIST3D
+
+![Alt text](assets/exp2_adrenal.png "Experiment 2. AdrenalMNIST3D")
+
+#### Experiment 2. VesselMNIST3D
+
+![Alt text](assets/exp2_vessel.png "Experiment 2. VesselMNIST3D")
+
+
+
+
 
 ![Alt text](assets/exp3_nodule.png "Experiment 3. NoduleMNIST3D")
 
 ![Alt text](assets/exp4_nodule.png "Experiment 4. NoduleMNIST3D")
 
 
-![Alt text](assets/exp2_adrenal.png "Experiment 2. AdrenalMNIST3D")
-
 ![Alt text](assets/exp3_adrenal.png "Experiment 3. AdrenalMNIST3D")
 
 ![Alt text](assets/exp4_adrenal.png "Experiment 4. AdrenalMNIST3D")
 
-
-![Alt text](assets/exp2_vessel.png "Experiment 2. VesselMNIST3D")
 
 ![Alt text](assets/exp3_vessel.png "Experiment 3. VesselMNIST3D")
 
