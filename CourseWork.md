@@ -46,13 +46,31 @@ Liquid neural networks for this experiment outperformed normal convolutional net
 
 ![Alt text](assets/exp2_nodule.png "Experiment 2. NoduleMNIST3D")
 
+![Alt text](assets/exp3_nodule.png "Experiment 3. NoduleMNIST3D")
+
+![Alt text](assets/exp4_nodule.png "Experiment 4. NoduleMNIST3D")
+
+
+
 ![Alt text](assets/exp1_adrenal.png "Experiment 1. AdrenalMNIST3D")
 
 ![Alt text](assets/exp2_adrenal.png "Experiment 2. AdrenalMNIST3D")
 
+![Alt text](assets/exp3_adrenal.png "Experiment 3. AdrenalMNIST3D")
+
+![Alt text](assets/exp4_adrenal.png "Experiment 4. AdrenalMNIST3D")
+
+
 ![Alt text](assets/exp1_vessel.png "Experiment 1. VesselMNIST3D")
 
 ![Alt text](assets/exp2_vessel.png "Experiment 2. VesselMNIST3D")
+
+![Alt text](assets/exp3_vessel.png "Experiment 3. VesselMNIST3D")
+
+![Alt text](assets/exp4_vessel.png "Experiment 4. VesselMNIST3D")
+
+
+![Alt text](assets/comparison.png "Methods Comparison")
 
 
 ## Conclusion
