@@ -1,0 +1,16 @@
+exp_name: "exp5_adrenal"
+dataset: "AdrenalMNIST3D"
+
+training_params:
+  num_epochs: 500
+  batch_size: 64
+  learning_rate: 0.0005
+  num_workers: 8
+
+model:
+  - _target_: src.models.MNIST3dLiqExp5N1
+  - _target_: src.models.MNIST3dLSTMExp5N2
+  - _target_: src.models.MNIST3dLSTMExp5N3
+  - _target_: src.models.MNIST3dLSTMExp5N4
+  - _target_: src.models.MNIST3dRNNExp5N5
+  - _target_: src.models.MNIST3dRNNExp5N6

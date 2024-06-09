@@ -7,3 +7,4 @@ from src.models.mnist3d.mnist_exp1 import *
 from src.models.mnist3d.mnist_exp2 import *
 from src.models.mnist3d.mnist_exp3 import *
 from src.models.mnist3d.mnist_exp4 import *
+from src.models.mnist3d.mnist_exp5 import *
