@@ -32,7 +32,9 @@ I conducted five experiments. Each experiment used six different models for each
 
 Firstly, the study made use of traditional Convolutional Neural Networks. These models predicted targets individually for each timestamp. This means that they make predictions based on the data available at a specific point in time, without considering the sequence of data. After making individual predictions for each timestamp, the results are then averaged to provide a single output. Afterwards, the study also included models that utilized Liquid Time-constant layers. In contrast to the CNNs, these models are designed to predict on sequential data. They take into account the order of data points and make predictions based on the entire sequence of data rather than individual timestamps. Finally, the study involved training a few Long Short-Term Memory and Recurrent Neural Network models. These models were trained and their results compared with the CNN and LTC models to identify the most effective approach.
 
-#### Experiment 1.
+These experiments first are be described individually, then I choose the best out of them, join and compare to the benchmarks provided to these datasets.
+
+### Experiment 1.
 
 The first experiment tested the models with a basic CNN architecture and Liquid neural networks with AutoNCP wirings. The convolutional layers are followed by:
 
@@ -62,9 +64,9 @@ The first experiment tested the models with a basic CNN architecture and Liquid 
 
 The performance of Liquid Neural Networks varied across the three datasets. For the AdrenalMNIST3D dataset, the LTC models didn't perform well. The traditional CNNs were much better in terms of results, and they also required less time to train.  However, the LTC performed better with the other two datasets. For the NoduleMNIST3D dataset, a Liquid Neural Network with a single Liquid layer of 30 neurons showed slightly improved results compared to its CNN counterparts. The rest of the models, however, performed similarly to the CNNs. The most significant improvement was seen with the VesselMNIST3D dataset. Here, the some Liquid Neural Networks greatly outperformed the traditional CNN models. In summary, for experiment 1 while the Liquid Neural Networks struggled with the AdrenalMNIST3D dataset, they showed comparable or even superior performance with the NoduleMNIST3D and VesselMNIST3D datasets.
 
-#### Experiment 2.
+### Experiment 2.
 
-The second experiment tested other configurations of CNN architecture and Liquid neural networks with Fully Connected wirings. The convolutional layers are followed by:
+The second experiment tested other configurations of CNN architecture and Liquid neural networks with Fully Connected wirings (only in this experiment). The convolutional layers are followed by:
 
 **MNIST3dCNNExp2N1** - five linear layers with RELU activation function of outputs (128, 128, 64, 32, 1).
 
@@ -78,8 +80,6 @@ The second experiment tested other configurations of CNN architecture and Liquid
 
 **MNIST3dLiqExp2N6** - one liquid layer with 30 neurons and Fully Connected wiring.
 
-The performance of LTC remained the same on Adrenal and Nodule datasets, however with Fully Connected they produced significantly worse results on a Vessel dataset.
-
 #### Experiment 2. NoduleMNIST3D
 
 ![Alt text](assets/exp2_nodule.png "Experiment 2. NoduleMNIST3D")
@@ -92,27 +92,73 @@ The performance of LTC remained the same on Adrenal and Nodule datasets, however
 
 ![Alt text](assets/exp2_vessel.png "Experiment 2. VesselMNIST3D")
 
+The performance of LTC remained the same on Adrenal and Nodule datasets, however with Fully Connected they produced significantly worse results on a Vessel dataset.
 
+### Experiment 3.
 
+The third experiment tested combinations of liquid and linear layers, and adding dropout. For all LTC AutoNCP wiring was used. The convolutional layers are followed by:
 
+**MNIST3dCNNExp3N1** - three linear layers with RELU activation function of outputs (120, 84, 1) and dropout 0.2 after each layer.
+
+**MNIST3dLiqExp3N2** - one linear layer with RELU activation function and dropout of 0.2 of output (256), and LTC layer with 21 neurons.
+
+**MNIST3dLiqExp3N3** - batch normalization, dropout of 0.2 and single LTC layer with 21 neurons.
+
+**MNIST3dLiqExp3N4** - dropout of 0.2 and single LTC layer with 21 neurons.
+
+**MNIST3dLiqExp3N5** - one LTC layer with 21 neurons and output of 14, followed by linear layer with output of 1.
+
+**MNIST3dCNNExp3N6** - three linear layers with RELU activation function of outputs (120, 84, 1) and dropout 0.2 after each layer. In comparison to MNIST3dCNNExp3N1, the final layer was applied after averaging the results for each timestamp.
+
+#### Experiment 3. NoduleMNIST3D
 
 ![Alt text](assets/exp3_nodule.png "Experiment 3. NoduleMNIST3D")
 
-![Alt text](assets/exp4_nodule.png "Experiment 4. NoduleMNIST3D")
-
+#### Experiment 3. AdrenalMNIST3D
 
 ![Alt text](assets/exp3_adrenal.png "Experiment 3. AdrenalMNIST3D")
 
-![Alt text](assets/exp4_adrenal.png "Experiment 4. AdrenalMNIST3D")
-
+#### Experiment 3. VesselMNIST3D
 
 ![Alt text](assets/exp3_vessel.png "Experiment 3. VesselMNIST3D")
 
+The results are similar to Experiment 1.
+
+### Experiment 4.
+
+For this experiment I added two additional convolutional layers before the application of the algorithms. For all LTC AutoNCP wiring was used. The convolutional layers are followed by:
+
+**MNIST3dCNNExp4N1** - three linear layers with RELU activation function of outputs (64, 32, 1).
+
+**MNIST3dLiqExp4N2** - one LTC layer with 21 neurons.
+
+**MNIST3dCNNExp4N3** - three linear layers with RELU activation function of outputs (120, 84, 1). Also I removed pooling from the last convolutional layer.
+
+**MNIST3dCNNExp4N4** - three linear layers with RELU activation function of outputs (60, 42, 1). Also I removed pooling from the last convolutional layer.
+
+**MNIST3dLiqExp4N5** - two liquid layers with 21 and 7 neurons respectively, and RELU activation between them.
+
+**MNIST3dLiqExp4N6** - one LTC layer with 21 neurons. Also I removed pooling from the last convolutional layer.
+
+#### Experiment 4. NoduleMNIST3D
+
+![Alt text](assets/exp4_nodule.png "Experiment 4. NoduleMNIST3D")
+
+#### Experiment 4. AdrenalMNIST3D
+
+![Alt text](assets/exp4_adrenal.png "Experiment 4. AdrenalMNIST3D")
+
+#### Experiment 4. VesselMNIST3D
+
 ![Alt text](assets/exp4_vessel.png "Experiment 4. VesselMNIST3D")
 
+The results are similar to Experiment 1.
+
+### Metrics comparison
+
+The table below compares the metrics of the top methods against public benchmarks and among various experiments. The results reveal big differences across the datasets. Liquid Time-Constant models did not do well with the AdrenalMNIST3D dataset. However, they produced similar or slightly superior results on the other two datasets. Interestingly, the advantage of having fewer parameters in the LTC models doesn't seem to offer significant benefits when compared to small convolutional networks. It's also important to note that Liquid Neural Networks take substantially longer to train than their CNN counterparts. All the proposed models show better results than the public benchmarks.
 
 ![Alt text](assets/comparison.png "Methods Comparison")
-
 
 ## Conclusion
 
