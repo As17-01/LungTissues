@@ -42,11 +42,18 @@ The first experiment tested the models with a basic CNN architecture and Liquid 
 
 Liquid neural networks for this experiment outperformed normal convolutional networks, however, they took significantly more time to train, despite having the smaller number of trainable parameters.
 
-<img src="assets/exp1_nodule.png" width="350" alt="Experiment 1. NoduleMNIST3D"> <img src="assets/exp2_nodule.png" width="350" alt="Experiment 2. NoduleMNIST3D">
+![Alt text](assets/exp1_nodule.png "Experiment 1. NoduleMNIST3D")
 
-<img src="assets/exp1_adrenal.png" width="350" alt="Experiment 1. AdrenalMNIST3D"> <img src="assets/exp2_adrenal.png" width="350" alt="Experiment 2. AdrenalMNIST3D">
+![Alt text](assets/exp2_nodule.png "Experiment 2. NoduleMNIST3D")
 
-<img src="assets/exp1_vessel.png" width="350" alt="Experiment 1. VesselMNIST3D"> <img src="assets/exp2_vessel.png" width="350" alt="Experiment 2. VesselMNIST3D">
+![Alt text](assets/exp1_adrenal.png "Experiment 1. AdrenalMNIST3D")
+
+![Alt text](assets/exp2_adrenal.png "Experiment 2. AdrenalMNIST3D")
+
+![Alt text](assets/exp1_vessel.png "Experiment 1. VesselMNIST3D")
+
+![Alt text](assets/exp2_vessel.png "Experiment 2. VesselMNIST3D")
+
 
 ## Conclusion
 
