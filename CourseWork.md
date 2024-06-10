@@ -180,7 +180,7 @@ This experiment included recurrent neural netowrks and LSTM in comparison to a s
 
 #### Experiment 5. VesselMNIST3D
 
-![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")s
+![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")
 
 ### Metrics comparison
 
