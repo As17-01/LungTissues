@@ -156,19 +156,19 @@ The results are similar to Experiment 1.
 
 ### Experiment 5.
 
-This experiment included recurrent neural netowrks and LSTM in comparison to a small liquid neural network
+This experiment included recurrent neural networks and LSTM in comparison to a small liquid neural network. 
 
-**MNIST3dLiqExp5N1** - ...
+**MNIST3dLiqExp5N1** - one LTC layer with 5 neurons
 
-**MNIST3dLSTMExp5N2** - ...
+**MNIST3dLSTMExp5N2** - one LSTM layer with 40 hidden state features followed by one linear layer with output of 1.
 
-**MNIST3dLSTMExp5N3** - ...
+**MNIST3dLSTMExp5N3** - two LSTM layers of 40 and 1 hidden state features respectively.
 
-**MNIST3dLSTMExp5N4** - ...
+**MNIST3dLSTMExp5N4** - two LSTM layers with 40 hidden state features followed by one linear layer with output of 1.
 
-**MNIST3dRNNExp5N5** - ...
+**MNIST3dRNNExp5N5** - one RNN layer with 40 hidden state features followed by one linear layer with output of 1.
 
-**MNIST3dRNNExp5N6** - ...
+**MNIST3dRNNExp5N6** - two RNN layers with 40 hidden state features followed by one linear layer with output of 1.
 
 #### Experiment 5. NoduleMNIST3D
 
@@ -182,9 +182,11 @@ This experiment included recurrent neural netowrks and LSTM in comparison to a s
 
 ![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")
 
+In this experiment the Liquid Time-Constant network shows worse results than other recurrent neural networks, however LTC netoworks from the other experiments outperform RNN and LSTM networks, having significantly less parameters.
+
 ### Metrics comparison
 
-The table below compares the metrics of the top methods against public benchmarks and among various experiments. The results reveal big differences across the datasets. Liquid Time-Constant models did not do well with the AdrenalMNIST3D dataset. However, they produced similar or slightly superior results on the other two datasets. Interestingly, the advantage of having fewer parameters in the LTC models doesn't seem to offer significant benefits when compared to small convolutional networks. It's also important to note that Liquid Neural Networks take substantially longer to train than their CNN counterparts. All the proposed models show better results than the public benchmarks.
+The table below compares the metrics of the top methods against public benchmarks and among various experiments. The results reveal big differences across the datasets. Liquid Time-Constant models did not do well with the AdrenalMNIST3D dataset. However, they produced similar or slightly superior results on the other two datasets. Interestingly, the advantage of having fewer parameters in the LTC models doesn't seem to offer significant benefits when compared to small convolutional networks. It's also important to note that Liquid Neural Networks take substantially longer to train than their CNN counterparts. Comparing to the recurrent neural networks, the advantages of LTC networks are more noticable - in most configurations they outperform their RNN and LSTM counterparts and they are much smaller. All the proposed models show better results than the public benchmarks.
 
 ![Alt text](assets/comparison.png "Methods Comparison")
 
