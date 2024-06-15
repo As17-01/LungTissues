@@ -30,7 +30,7 @@ The datasets come from the public MedMnist library. It contains a broad 2D and 3
 
 #### Vessel Dataset
 
-![Alt text](assets/vessel_adrenal.png "Vessel Dataset")
+![Alt text](assets/datasets_vessel.png "Vessel Dataset")
 
 ## Implementation
 
