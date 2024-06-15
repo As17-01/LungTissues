@@ -50,7 +50,7 @@ Firstly, the study made use of traditional Convolutional Neural Networks. These 
 
 ### Results
 
-Liquid Neural Networks' performance varied across three datasets. On the AdrenalMNIST3D dataset, these networks struggled, with traditional CNNs delivering better results in less time. However, on the NoduleMNIST3D and VesselMNIST3D datasets, they showed comparable or superior performance. Specifically, on the NoduleMNIST3D dataset, Liquid Neural Networks slightly outperformed CNNs, while on the VesselMNIST3D dataset, they greatly surpassed traditional CNN models. Despite having fewer parameters, Liquid Time-Constant (LTC) models did not offer significant benefits compared to small convolutional networks. Moreover, they took longer to train than CNNs. However, when compared to recurrent neural networks, the advantages of LTC networks were more noticeable. In most configurations, they outperformed their RNN and LSTM counterparts and were much smaller.  In comparison to public benchmarks, all proposed models delivered better results, despite the differences noticed across the datasets.
+Liquid Neural Network's performance varied across three datasets. On the AdrenalMNIST3D dataset, these networks struggled, with traditional CNNs delivering better results in less time. However, on the NoduleMNIST3D and VesselMNIST3D datasets, they showed comparable or superior performance. Despite having fewer parameters in average, Liquid Time-Constant (LTC) models did not offer significant benefits compared to small convolutional networks. Moreover, they took longer to train than CNNs. However, when compared to recurrent neural networks, the advantages of LTC networks were more noticeable. In most configurations, they outperformed their RNN and LSTM counterparts and were much smaller.
 
 #### Table 2. Methods comparison
 
@@ -67,8 +67,6 @@ TODO
 2. **Lai, Z., Wu, J., Chen, S., Zhou, Y., & Hovakimyan, N.** (2024). Language Models are Free Boosters for Biomedical Imaging Tasks. arXiv (Cornell University). https://doi.org/10.48550/arxiv.2403.17343
 
 3. **Yang, J., Shi, R., & Ni, B.** (2021). MedMNIST Classification Decathlon: A Lightweight AutoML Benchmark for Medical Image Analysis. In 2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI) (pp. 191-195). Nice, France. doi: https://doi.org/10.1109/ISBI48211.2021.9434062
-
-4. **Hassan, E., Hossain, M. S., Saber, A., Elmougy, S., Ghoneim, A., & Muhammad, G.** (2024). A quantum convolutional network and ResNet (50)-based classification architecture for the MNIST medical dataset. Biomedical Signal Processing and Control, 87, 105560. https://doi.org/10.1016/j.bspc.2023.105560
 
 ## Appendix
 
@@ -133,4 +131,3 @@ TODO
 #### Figure 18. Experiment 5: VesselMNIST3D
 
 ![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")
-
