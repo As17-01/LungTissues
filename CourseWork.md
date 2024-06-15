@@ -16,13 +16,19 @@ The datasets come from the public MedMnist library. It contains a broad 2D and 3
 
 **AdrenalMNIST3D.** This dataset is obtained from Zhongshan Hospital data and contains shape masks of 1584 adrenal glands. They are split into 1188 samples for training, 98 for validation and 298 for testing.
 
+#### Figure 1. Adrenal Dataset Sample
+
 ![Alt text](assets/datasets_adrenal.png "Adrenal Dataset")
 
 **NoduleMNIST3D.** This dataset contains thoracic CT scans. They are split into 1158 samples for training, 165 for validation and 310 for testing.
 
+#### Figure 2. Nodule Dataset Sample
+
 ![Alt text](assets/datasets_nodule.png "Nodule Dataset")
 
 **VesselMNIST3D.** This is a 3D intracranial aneurysm dataset, which contains 103 3D models of entire brain vessels collected by reconstructing MRA images. The total number of 1,694 healthy vessel segments and 215 aneurysm segments are created automatically by the complete models. They are split into 1335 samples for training, 191 for validation and 382 for testing.
+
+#### Figure 3. Vessel Dataset Sample
 
 ![Alt text](assets/datasets_vessel.png "Vessel Dataset")
 
@@ -38,11 +44,15 @@ I conducted five experiments. Each experiment used six different models for each
 
 Firstly, the study made use of traditional Convolutional Neural Networks. These models predicted targets individually for each timestamp. This means that they make predictions based on the data available at a specific point in time, without considering the sequence of data. After making individual predictions for each timestamp, the results are then averaged to provide a single output. Afterwards, the study also included models that utilized Liquid Time-constant layers. In contrast to the CNNs, these models are designed to predict on sequential data. They take into account the order of data points and make predictions based on the entire sequence of data rather than individual timestamps. Finally, the study involved training a few Long Short-Term Memory and Recurrent Neural Network models. These models were trained and their results compared with the CNN and LTC models to identify the most effective approach.
 
+#### Table 1. Models architecture
+
 ![Alt text](assets/methodology.png "Methodology")
 
 ### Results
 
 Liquid Neural Networks' performance varied across three datasets. On the AdrenalMNIST3D dataset, these networks struggled, with traditional CNNs delivering better results in less time. However, on the NoduleMNIST3D and VesselMNIST3D datasets, they showed comparable or superior performance. Specifically, on the NoduleMNIST3D dataset, Liquid Neural Networks slightly outperformed CNNs, while on the VesselMNIST3D dataset, they greatly surpassed traditional CNN models. Despite having fewer parameters, Liquid Time-Constant (LTC) models did not offer significant benefits compared to small convolutional networks. Moreover, they took longer to train than CNNs. However, when compared to recurrent neural networks, the advantages of LTC networks were more noticeable. In most configurations, they outperformed their RNN and LSTM counterparts and were much smaller.  In comparison to public benchmarks, all proposed models delivered better results, despite the differences noticed across the datasets.
+
+#### Table 2. Methods comparison
 
 ![Alt text](assets/comparison.png "Methods Comparison")
 
@@ -64,63 +74,63 @@ TODO
 
 ### Metrics for each model
 
-#### Experiment 1. NoduleMNIST3D
+#### Figure 4. Experiment 1: NoduleMNIST3D
 
 ![Alt text](assets/exp1_nodule.png "Experiment 1. NoduleMNIST3D")
 
-#### Experiment 1. AdrenalMNIST3D
+#### Figure 5. Experiment 1: AdrenalMNIST3D
 
 ![Alt text](assets/exp1_adrenal.png "Experiment 1. AdrenalMNIST3D")
 
-#### Experiment 1. VesselMNIST3D
+#### Figure 6. Experiment 1: VesselMNIST3D
 
 ![Alt text](assets/exp1_vessel.png "Experiment 1. VesselMNIST3D")
 
-#### Experiment 2. NoduleMNIST3D
+#### Figure 7. Experiment 2: NoduleMNIST3D
 
 ![Alt text](assets/exp2_nodule.png "Experiment 2. NoduleMNIST3D")
 
-#### Experiment 2. AdrenalMNIST3D
+#### Figure 8. Experiment 2: AdrenalMNIST3D
 
 ![Alt text](assets/exp2_adrenal.png "Experiment 2. AdrenalMNIST3D")
 
-#### Experiment 2. VesselMNIST3D
+#### Figure 9. Experiment 2: VesselMNIST3D
 
 ![Alt text](assets/exp2_vessel.png "Experiment 2. VesselMNIST3D")
 
-#### Experiment 3. NoduleMNIST3D
+#### Figure 10. Experiment 3: NoduleMNIST3D
 
 ![Alt text](assets/exp3_nodule.png "Experiment 3. NoduleMNIST3D")
 
-#### Experiment 3. AdrenalMNIST3D
+#### Figure 11. Experiment 3: AdrenalMNIST3D
 
 ![Alt text](assets/exp3_adrenal.png "Experiment 3. AdrenalMNIST3D")
 
-#### Experiment 3. VesselMNIST3D
+#### Figure 12. Experiment 3: VesselMNIST3D
 
 ![Alt text](assets/exp3_vessel.png "Experiment 3. VesselMNIST3D")
 
-#### Experiment 4. NoduleMNIST3D
+#### Figure 13. Experiment 4: NoduleMNIST3D
 
 ![Alt text](assets/exp4_nodule.png "Experiment 4. NoduleMNIST3D")
 
-#### Experiment 4. AdrenalMNIST3D
+#### Figure 14. Experiment 4: AdrenalMNIST3D
 
 ![Alt text](assets/exp4_adrenal.png "Experiment 4. AdrenalMNIST3D")
 
-#### Experiment 4. VesselMNIST3D
+#### Figure 15. Experiment 4: VesselMNIST3D
 
 ![Alt text](assets/exp4_vessel.png "Experiment 4. VesselMNIST3D")
 
-#### Experiment 5. NoduleMNIST3D
+#### Figure 16. Experiment 5: NoduleMNIST3D
 
 ![Alt text](assets/exp5_nodule.png "Experiment 5. NoduleMNIST3D")
 
-#### Experiment 5. AdrenalMNIST3D
+#### Figure 17. Experiment 5: AdrenalMNIST3D
 
 ![Alt text](assets/exp5_adrenal.png "Experiment 5. AdrenalMNIST3D")
 
-#### Experiment 5. VesselMNIST3D
+#### Figure 18. Experiment 5: VesselMNIST3D
 
 ![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")
 
