@@ -36,9 +36,7 @@ Firstly, the study made use of traditional Convolutional Neural Networks. These 
 
 ### Results
 
-The performance of Liquid Neural Networks varied across the three datasets. For the AdrenalMNIST3D dataset, the LTC models didn't perform well. The traditional CNNs were much better in terms of results, and they also required less time to train.  However, the LTC performed better with the other two datasets. For the NoduleMNIST3D dataset, a Liquid Neural Network showed slightly improved results compared to its CNN counterparts. The rest of the models, however, performed similarly to the CNNs. The most significant improvement was seen with the VesselMNIST3D dataset. Here, the some Liquid Neural Networks greatly outperformed the traditional CNN models. In summary, the Liquid Neural Networks struggled with the AdrenalMNIST3D dataset, they showed comparable or even superior performance with the NoduleMNIST3D and VesselMNIST3D datasets.
-
-The table below compares the metrics of the top methods against public benchmarks and among various experiments. The results reveal big differences across the datasets. Liquid Time-Constant models did not do well with the AdrenalMNIST3D dataset. However, they produced similar or slightly superior results on the other two datasets. Interestingly, the advantage of having fewer parameters in the LTC models doesn't seem to offer significant benefits when compared to small convolutional networks. It's also important to note that Liquid Neural Networks take substantially longer to train than their CNN counterparts. Comparing to the recurrent neural networks, the advantages of LTC networks are more noticable - in most configurations they outperform their RNN and LSTM counterparts and they are much smaller. All the proposed models show better results than the public benchmarks.
+Liquid Neural Networks' performance varied across three datasets. On the AdrenalMNIST3D dataset, these networks struggled, with traditional CNNs delivering better results in less time. However, on the NoduleMNIST3D and VesselMNIST3D datasets, they showed comparable or superior performance. Specifically, on the NoduleMNIST3D dataset, Liquid Neural Networks slightly outperformed CNNs, while on the VesselMNIST3D dataset, they greatly surpassed traditional CNN models. Despite having fewer parameters, Liquid Time-Constant (LTC) models did not offer significant benefits compared to small convolutional networks. Moreover, they took longer to train than CNNs. However, when compared to recurrent neural networks, the advantages of LTC networks were more noticeable. In most configurations, they outperformed their RNN and LSTM counterparts and were much smaller.  In comparison to public benchmarks, all proposed models delivered better results, despite the differences noticed across the datasets.
 
 ![Alt text](assets/comparison.png "Methods Comparison")
 
@@ -53,6 +51,8 @@ TODO
 2. **Lai, Z., Wu, J., Chen, S., Zhou, Y., & Hovakimyan, N.** (2024). Language Models are Free Boosters for Biomedical Imaging Tasks. arXiv (Cornell University). https://doi.org/10.48550/arxiv.2403.17343
 
 3. **Yang, J., Shi, R., & Ni, B.** (2021). MedMNIST Classification Decathlon: A Lightweight AutoML Benchmark for Medical Image Analysis. In 2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI) (pp. 191-195). Nice, France. doi: https://doi.org/10.1109/ISBI48211.2021.9434062
+
+4. **Hassan, E., Hossain, M. S., Saber, A., Elmougy, S., Ghoneim, A., & Muhammad, G.** (2024). A quantum convolutional network and ResNet (50)-based classification architecture for the MNIST medical dataset. Biomedical Signal Processing and Control, 87, 105560. https://doi.org/10.1016/j.bspc.2023.105560
 
 ## Appendix
 
