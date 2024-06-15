@@ -14,17 +14,17 @@ The research question of this paper is to find which configurations of Liquid Ne
 
 The datasets come from the public MedMnist library. It contains a broad 2D and 3D images collection for a classification problem. For the experiments a choose three different datasets for binary classification. Each of them have thousands of images of a similar scale (28x28x28).
 
-**AdrenalMNIST3D.** This dataset is obtained from Zhongshan Hospital data and contains shape masks of 1584 adrenal glands. They are split into 1188 samples for training, 98 for validation and 298 for testing.
-
-#### Figure 1. Adrenal Dataset Sample
-
-![Alt text](assets/datasets_adrenal.png "Adrenal Dataset")
-
 **NoduleMNIST3D.** This dataset contains thoracic CT scans. They are split into 1158 samples for training, 165 for validation and 310 for testing.
 
-#### Figure 2. Nodule Dataset Sample
+#### Figure 1. Nodule Dataset Sample
 
 ![Alt text](assets/datasets_nodule.png "Nodule Dataset")
+
+**AdrenalMNIST3D.** This dataset is obtained from Zhongshan Hospital data and contains shape masks of 1584 adrenal glands. They are split into 1188 samples for training, 98 for validation and 298 for testing.
+
+#### Figure 2. Adrenal Dataset Sample
+
+![Alt text](assets/datasets_adrenal.png "Adrenal Dataset")
 
 **VesselMNIST3D.** This is a 3D intracranial aneurysm dataset, which contains 103 3D models of entire brain vessels collected by reconstructing MRA images. The total number of 1,694 healthy vessel segments and 215 aneurysm segments are created automatically by the complete models. They are split into 1335 samples for training, 191 for validation and 382 for testing.
 
