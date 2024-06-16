@@ -48,7 +48,7 @@ Firstly, the study made use of traditional Convolutional Neural Networks. These 
 
 ### Results
 
-Liquid Neural Network's performance varied across three datasets. On the AdrenalMNIST3D dataset, these networks struggled, with traditional CNNs delivering better results in less time. However, on the NoduleMNIST3D and VesselMNIST3D datasets, they showed comparable or superior performance. Despite having fewer parameters in average, Liquid Time-Constant (LTC) models did not offer significant benefits compared to small convolutional networks. Moreover, they took longer to train than CNNs. However, when compared to recurrent neural networks, the advantages of LTC networks were more noticeable. In most configurations, they outperformed their RNN and LSTM counterparts and were much smaller.
+Liquid Neural Network's performance varied across three datasets. On the AdrenalMNIST3D dataset, these networks struggled, with traditional CNNs delivering better results in less time. However, on the NoduleMNIST3D and VesselMNIST3D datasets, they showed comparable or sometimes superior performance to the other compact networks. Despite having fewer parameters in average, Liquid Time-Constant models did not offer significant benefits compared to small convolutional networks on all three datasets, and they took longer to train than CNNs. It indicates that the sequential nature of three datasets was not very important for making predictions. However, when compared to recurrent neural networks, the advantages of LTC networks were more noticeable. In most configurations, they outperformed their RNN and LSTM counterparts and had much less parameters.
 
 #### Table 2. Methods comparison
 
@@ -56,7 +56,7 @@ Liquid Neural Network's performance varied across three datasets. On the Adrenal
 
 ## Conclusion
 
-TODO
+This research has provided valuable insights into the application of Liquid Time-Constant Neural Networks in the field of medical image analysis. It has demonstrated that LTC networks can be a competitive alternative to other compact networks, often delivering comparable performance. Despite having similar number of parameters, LTC models did not always offer significant advantages over small convolutional networks, and their training process was more time-consuming. This suggests that the sequential nature of the datasets used was not a critical factor for making accurate predictions. However, in comparison to recurrent neural networks, LTC networks displayed more noticeable benefits. They outperformed their RNN and LSTM counterparts in most configurations, while having significantly fewer parameters. This indicates that LTC networks could be a more efficient choice for tasks where traditional RNNs or LSTMs are typically used, especially when the model size is a concern. However, further research is needed to fully understand the conditions under which LTC networks can offer the most significant benefits. Future work could also explore the performance of the LTC networks on other, more complex datasets, where the sequential nature of the data is more important.
 
 ## References
 
@@ -65,6 +65,8 @@ TODO
 2. **Lai, Z., Wu, J., Chen, S., Zhou, Y., & Hovakimyan, N.** (2024). Language Models are Free Boosters for Biomedical Imaging Tasks. arXiv (Cornell University). https://doi.org/10.48550/arxiv.2403.17343
 
 3. **Yang, J., Shi, R., & Ni, B.** (2021). MedMNIST Classification Decathlon: A Lightweight AutoML Benchmark for Medical Image Analysis. In 2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI) (pp. 191-195). Nice, France. doi: https://doi.org/10.1109/ISBI48211.2021.9434062
+
+4. **Zheng, Z., & Jia, X.** (2023). Complex Mixer for MEDMNIST Classification Decathlon. arXiv (Cornell University). https://doi.org/10.48550/arxiv.2304.10054
 
 ## Appendix
 
