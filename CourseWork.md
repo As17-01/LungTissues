@@ -1,4 +1,4 @@
-<style>body {text-align: right}
+<style>body {text-align: right}</style>
 
 # Application of Liquid Neural Networks to 3D images classification on the example of MedMNIST datasets 
 
@@ -133,5 +133,3 @@
 #### Figure 18. Experiment 5: VesselMNIST3D
 
 ![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")
-
-</style>
