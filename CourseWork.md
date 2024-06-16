@@ -1,10 +1,9 @@
-<p align="justify"> 
 
 # Application of Liquid Neural Networks to 3D images classification on the example of MedMNIST datasets 
 
 ## Introduction
 
-&nbsp;&nbsp;&nbsp;&nbsp; The modern healthcare sector utilizes various technologies to improve patient outcomes and accelerate the recovery process. A key element of medical interventions involves the use of biomedical images, which play a crucial role in enabling more precise diagnoses and developing effective treatment strategies. However, the interpretation of such images is susceptible to human error, which can result in negative outcomes such as incorrect treatment selection and delayed disease detection. The integration of deep learning techniques has significantly enhanced the accuracy of image analysis by identifying potentially problematic cases for further review by healthcare professionals. These advanced methods have changed the approach towards analyzing and interpreting biomedical data and they provide with automated frameworks that help in the identification of diseases.
+<p align="justify"> &nbsp;&nbsp;&nbsp;&nbsp; The modern healthcare sector utilizes various technologies to improve patient outcomes and accelerate the recovery process. A key element of medical interventions involves the use of biomedical images, which play a crucial role in enabling more precise diagnoses and developing effective treatment strategies. However, the interpretation of such images is susceptible to human error, which can result in negative outcomes such as incorrect treatment selection and delayed disease detection. The integration of deep learning techniques has significantly enhanced the accuracy of image analysis by identifying potentially problematic cases for further review by healthcare professionals. These advanced methods have changed the approach towards analyzing and interpreting biomedical data and they provide with automated frameworks that help in the identification of diseases.</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp; In recent years, the field has experienced rapid advancements in deep learning technologies. Besides other popular approaches that have emerged, the application of Liquid Time-Constant Neural Networks stands out as a promising possibility to enhance the accuracy and efficiency of medical image analysis. First they were introduced by (Hasani and etc, 2021) and now they could serve as a replacement to traditional recurrent neural networks or aggregated output of linear layers when analizing sequential data. Inspired by the dynamic behavior of liquid systems, LNNs are offering a unique framework that utilizes adaptive and self-organizing neural layers to make predictions. This term work shows the potential of Liquid Neural Networks as a new deep learning technique, with a specific focus on their application to the analysis of diverse medical data. The main advantage of LTC is that they have significantly less parameters than other RNNs. The main focus of the term paper is to train relatively compact networks, and assess how LTC works in comparison to the other methods. Then they will be compared to the benchmarks models, which have significantly more parameters. This study contributes to the current literature about Liquid Time-constant networks, classification of medical images and processing sequential data.
 
@@ -133,5 +132,3 @@
 #### Figure 18. Experiment 5: VesselMNIST3D
 
 ![Alt text](assets/exp5_vessel.png "Experiment 5. VesselMNIST3D")
-
-</p>
