@@ -2,7 +2,7 @@
 
 Run training:
 
-`python main.py model=baseline`
+`python main.py --config-name=exp1_nodule`
 
 See `https://medmnist.com/` for metrics comparison.
 
